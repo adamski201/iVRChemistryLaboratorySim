@@ -28,7 +28,6 @@ public class CountCoal : MonoBehaviour
 
    private bool FilledWithCoal()
     {
-        Debug.Log(socket1.hasSelection && socket2.hasSelection && socket3.hasSelection);
         return socket1.hasSelection && socket2.hasSelection && socket3.hasSelection;
     }
 }
