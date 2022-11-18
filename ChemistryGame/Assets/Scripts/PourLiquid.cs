@@ -8,13 +8,18 @@ public class PourLiquid : MonoBehaviour
     public Collider toCollider;
     public float fromLiquidMaxYScale, toLiquidMaxYScale;
 
+    private void Start()
+    {
+
+    }
+
     private void Update()
     {
+        Vector3 scaleChange = new(0, 0.001f, 0);
+        HideLiquidWhenDepleted();
+
         if (CollidersAreTouching())
         {
-            Debug.Log(fromCollider.transform.parent.transform.localScale);
-            Vector3 scaleChange = new(0, 0.001f, 0);
-
             if (fromCollider.transform.parent.transform.lossyScale.y > 0 && toCollider.transform.parent.transform.lossyScale.y < toLiquidMaxYScale)
             {
                 fromCollider.transform.parent.transform.localScale -= scaleChange;
@@ -31,6 +36,27 @@ public class PourLiquid : MonoBehaviour
         } else
         {
             return false;
+        }
+    }
+
+    private void HideLiquidWhenDepleted()
+    {
+        if (fromCollider.transform.parent.transform.lossyScale.y <= 0)
+        {
+            fromCollider.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            fromCollider.transform.parent.gameObject.SetActive(true);
+        }
+
+        if (toCollider.transform.parent.transform.lossyScale.y <= 0)
+        {
+            toCollider.transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            toCollider.transform.parent.gameObject.SetActive(true);
         }
     }
 
