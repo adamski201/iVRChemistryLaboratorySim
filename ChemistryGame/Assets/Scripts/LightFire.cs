@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class CountCoal : MonoBehaviour
+public class LightFire : MonoBehaviour
 {
     public XRSocketInteractor socket1;
     public XRSocketInteractor socket2;
     public XRSocketInteractor socket3;
     public GameObject fire;
 
-    private void Start()
+    private void Awake()
     {
         fire.SetActive(false);
     }
