@@ -1,5 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1436586930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1436586931}
+  - component: {fileID: 1436586932}
+  m_Layer: 0
+  m_Name: PourPosition
+  m_TagString: PourPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1436586931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436586930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 612792180434530636}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1436586932
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436586930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.03
+  m_Center: {x: -0.02, y: 0, z: 0.18}
 --- !u!1 &776309785954174186
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +73,7 @@ Transform:
   m_GameObject: {fileID: 776309785954174186}
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.0762}
-  m_LocalScale: {x: 0.06909375, y: 0.045430537, z: 0.05978416}
+  m_LocalScale: {x: 0.06909375, y: 0, z: 0.05978416}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 612792180434530636}
@@ -112,9 +157,10 @@ GameObject:
   - component: {fileID: 4869675482221730157}
   - component: {fileID: 4869675482221730151}
   - component: {fileID: 4869675482221730158}
+  - component: {fileID: 368792775}
   m_Layer: 0
   m_Name: RetortBody
-  m_TagString: Untagged
+  m_TagString: LiquidContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,6 +181,7 @@ Transform:
   - {fileID: 4869675482082341226}
   - {fileID: 4869675480507759959}
   - {fileID: 8511250096538027349}
+  - {fileID: 1436586931}
   m_Father: {fileID: 4908406213065112862}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -343,6 +390,19 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &368792775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3971844244375060619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05144654699b24884530d99c04d7e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLiquidYScale: 0.035
 --- !u!1 &4869675480507759960
 GameObject:
   m_ObjectHideFlags: 0

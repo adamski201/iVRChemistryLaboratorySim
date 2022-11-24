@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PourLiquid : MonoBehaviour
 {
-    public Collider fromCollider;
-    public Collider toCollider;
-    public float fromLiquidMaxYScale, toLiquidMaxYScale;
+    private Vector3 scaleChange = new(0, 0.0005f, 0);
+    public bool HasInfiniteVolume;
 
-    private void Start()
-    {
-
+    private void OnTriggerStay(Collider other)
+    {   
+        if (other.CompareTag("PourPoint"))
+        {
+            LiquidContainer receiverContainer = other.transform.parent.GetComponent<LiquidContainer>();
+            receiverContainer.FillUp(scaleChange);
+        }
     }
+}
 
-    private void Update()
+   /* private void Update()
     {
-        Vector3 scaleChange = new(0, 0.001f, 0);
         HideLiquidWhenDepleted();
 
         if (CollidersAreTouching())
@@ -26,9 +29,9 @@ public class PourLiquid : MonoBehaviour
                 toCollider.transform.parent.transform.localScale += scaleChange;
             }
         }
-    }
+    }*/
 
-    private bool CollidersAreTouching()
+/*    private bool CollidersAreTouching()
     {
         if (fromCollider.bounds.Intersects(toCollider.bounds))
         {
@@ -60,4 +63,4 @@ public class PourLiquid : MonoBehaviour
         }
     }
 
-}
+}*/
