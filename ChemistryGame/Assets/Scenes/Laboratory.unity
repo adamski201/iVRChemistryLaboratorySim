@@ -2177,6 +2177,12 @@ Transform:
   m_Father: {fileID: 1738286499}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!4 &1144621232 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8511250096538027349, guid: f78623d774e1224449ad553be68320b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4869675480634239695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1212158231
 GameObject:
   m_ObjectHideFlags: 0
@@ -2772,6 +2778,7 @@ GameObject:
   - component: {fileID: 1431113116}
   - component: {fileID: 1431113115}
   - component: {fileID: 1431113114}
+  - component: {fileID: 1431113118}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -2857,6 +2864,21 @@ Transform:
   m_Father: {fileID: 1738286499}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1431113118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431113113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05144654699b24884530d99c04d7e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLiquidYScale: 0.035
+  upAxis: 
+  liquid: {fileID: 0}
 --- !u!1 &1450767302 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1450767302, guid: 09dfc90165134f546acff417ed077124,
@@ -3956,6 +3978,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 352868584}
     m_Modifications:
+    - target: {fileID: 368792775, guid: f78623d774e1224449ad553be68320b6, type: 3}
+      propertyPath: liquid
+      value: 
+      objectReference: {fileID: 1144621232}
     - target: {fileID: 368792775, guid: f78623d774e1224449ad553be68320b6, type: 3}
       propertyPath: upAxis
       value: z
