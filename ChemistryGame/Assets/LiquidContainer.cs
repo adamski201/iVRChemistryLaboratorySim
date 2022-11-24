@@ -5,7 +5,9 @@ using UnityEngine;
 public class LiquidContainer : MonoBehaviour
 {
     public float maxLiquidYScale = 0.035f;
+    public string upAxis;
     private Transform liquid;
+    private Vector3 emptyScaleChange = new(0, 0.001f, 0);
 
     private void Start()
     {
@@ -14,10 +16,17 @@ public class LiquidContainer : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(transform.up.z);
+        HideWhenEmpty();
+
+        if (!IsUpright())
+        {
+            EmptyContainer();
+        }
+        
+        Debug.Log(transform.forward);
     }
 
-    public void FillUp(Vector3 scaleChange)
+    public void FillContainer(Vector3 scaleChange)
     {
         if (!IsFull())
         {
@@ -33,10 +42,8 @@ public class LiquidContainer : MonoBehaviour
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     private bool IsEmpty()
@@ -44,9 +51,42 @@ public class LiquidContainer : MonoBehaviour
         if (liquid.lossyScale.y <= 0)
         {
             return true;
-        } else
+        }
+
+        return false;
+    }
+
+    private bool IsUpright()
+    {
+        if (upAxis == "z")
         {
-            return false;
+            if (transform.forward.y < -0.5)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void EmptyContainer()
+    {
+        if (!IsEmpty())
+        {
+            liquid.localScale -= emptyScaleChange;
+            liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+        }
+    }
+
+    private void HideWhenEmpty()
+    {
+        if (IsEmpty())
+        {
+            liquid.gameObject.SetActive(false);
+        }
+        else
+        {
+            liquid.gameObject.SetActive(true);
         }
     }
 }
