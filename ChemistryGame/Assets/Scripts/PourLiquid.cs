@@ -6,12 +6,6 @@ public class PourLiquid : MonoBehaviour
 {
     private Vector3 scaleChange = new(0, 0.0005f, 0);
     public bool HasInfiniteVolume;
-    private LiquidContainer liquidContainer;
-
-   /* private void Start()
-    {
-        liquidContainer = GetComponent<LiquidContainer>();
-    }*/
 
     private void OnTriggerStay(Collider other)
     {   
@@ -21,4 +15,5 @@ public class PourLiquid : MonoBehaviour
             receiverContainer.FillContainer(scaleChange);
         }
     }
+
 }

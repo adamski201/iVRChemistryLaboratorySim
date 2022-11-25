@@ -7,6 +7,7 @@ public class LiquidContainer : MonoBehaviour
     public float maxLiquidYScale = 0.035f;
     public string upAxis;
     public Transform liquid;
+    public string fluidName;
     private Vector3 emptyScaleChange = new(0, 0.001f, 0);
 
     private void Update()
@@ -17,8 +18,6 @@ public class LiquidContainer : MonoBehaviour
         {
             EmptyContainer();
         }
-        
-        Debug.Log(transform.forward);
     }
 
     public void FillContainer(Vector3 scaleChange)
