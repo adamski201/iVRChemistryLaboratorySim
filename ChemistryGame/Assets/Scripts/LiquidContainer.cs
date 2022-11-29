@@ -8,6 +8,7 @@ public class LiquidContainer : MonoBehaviour
     public string upAxis;
     public Transform liquid;
     public string fluidName;
+    public bool isInfinite;
     private Vector3 emptyScaleChange = new(0, 0.001f, 0);
 
     private void Update()
@@ -65,10 +66,13 @@ public class LiquidContainer : MonoBehaviour
 
     private void EmptyContainer()
     {
-        if (!IsEmpty())
+        if (!isInfinite)
         {
-            liquid.localScale -= emptyScaleChange;
-            liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+            if (!IsEmpty())
+            {
+                liquid.localScale -= emptyScaleChange;
+                liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+            }
         }
     }
 
