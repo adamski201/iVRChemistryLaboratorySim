@@ -35,11 +35,14 @@ public class LiquidContainer : MonoBehaviour
             liquidMesh.material = newliquidMaterial;
         }
 
-        if (!IsFull())
+        if (fluidName == newliquidName)
         {
-            liquid.localScale += scaleChange;
+            if (!IsFull())
+            {
+                liquid.localScale += scaleChange;
 
-            liquid.localPosition += new Vector3(0, 0, scaleChange.y);
+                liquid.localPosition += new Vector3(0, 0, scaleChange.y);
+            }
         }
     }
 
