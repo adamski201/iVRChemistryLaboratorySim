@@ -10,10 +10,16 @@ public class LiquidContainer : MonoBehaviour
     public string fluidName;
     public bool isInfinite;
     private Vector3 emptyScaleChange = new(0, 0.001f, 0);
+    private MeshRenderer liquidMesh;
+
+    private void Start()
+    {
+        liquidMesh = liquid.GetComponent<MeshRenderer>();
+    }
 
     private void Update()
     {
-        HideWhenEmpty();
+        ResetWhenEmpty();
 
         if (!IsUpright())
         {
@@ -21,8 +27,14 @@ public class LiquidContainer : MonoBehaviour
         }
     }
 
-    public void FillContainer(Vector3 scaleChange)
+    public void FillContainer(Vector3 scaleChange, string newliquidName, Material newliquidMaterial)
     {
+        if (IsEmpty())
+        {
+            fluidName = newliquidName;
+            liquidMesh.material = newliquidMaterial;
+        }
+
         if (!IsFull())
         {
             liquid.localScale += scaleChange;
@@ -76,11 +88,12 @@ public class LiquidContainer : MonoBehaviour
         }
     }
 
-    private void HideWhenEmpty()
+    private void ResetWhenEmpty()
     {
         if (IsEmpty())
         {
             liquid.gameObject.SetActive(false);
+            fluidName = null;
         }
         else
         {

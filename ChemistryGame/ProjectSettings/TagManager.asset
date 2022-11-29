@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LiquidContainer
   - PourPoint
+  - Liquid
   layers:
   - Default
   - TransparentFX
