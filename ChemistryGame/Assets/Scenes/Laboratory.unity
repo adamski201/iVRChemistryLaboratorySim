@@ -527,7 +527,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 1
+  m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -3698,16 +3698,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869675482221730158, guid: f78623d774e1224449ad553be68320b6,
         type: 3}
-      propertyPath: m_AttachTransform
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869675482221730158, guid: f78623d774e1224449ad553be68320b6,
-        type: 3}
-      propertyPath: m_UseDynamicAttach
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4869675482221730158, guid: f78623d774e1224449ad553be68320b6,
-        type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 139200558}
@@ -4007,11 +3997,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7761833879690947898, guid: 7fb74c8262ec3c14e931c0b868540c91,
-        type: 3}
-      propertyPath: m_AttachTransform
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7761833879690947898, guid: 7fb74c8262ec3c14e931c0b868540c91,
         type: 3}
