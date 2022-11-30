@@ -24,7 +24,7 @@ public class LiquidContainer : MonoBehaviour
         if (!IsUpright())
         {
             EmptyContainer();
-        }
+        }        
     }
 
     public void FillContainer(Vector3 scaleChange, string newliquidName, Material newliquidMaterial)
@@ -41,7 +41,13 @@ public class LiquidContainer : MonoBehaviour
             {
                 liquid.localScale += scaleChange;
 
-                liquid.localPosition += new Vector3(0, 0, scaleChange.y);
+                if (upAxis == "z")
+                {
+                    liquid.localPosition += new Vector3(0, 0, scaleChange.y);
+                } else if (upAxis == "y")
+                {
+                    liquid.localPosition += new Vector3(0, scaleChange.y, 0);
+                }
             }
         }
     }
@@ -76,6 +82,14 @@ public class LiquidContainer : MonoBehaviour
             }
         }
 
+        if (upAxis == "y")
+        {
+            if (transform.up.y < -0.5)
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -86,7 +100,15 @@ public class LiquidContainer : MonoBehaviour
             if (!IsEmpty())
             {
                 liquid.localScale -= emptyScaleChange;
-                liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+
+                if (upAxis == "z")
+                {
+                    liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+                } else if (upAxis == "y")
+                {
+                    liquid.localPosition -= new Vector3(0, emptyScaleChange.y, 0);
+                }
+                
             }
         }
     }
