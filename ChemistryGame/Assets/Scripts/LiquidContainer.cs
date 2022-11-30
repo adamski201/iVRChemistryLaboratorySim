@@ -23,7 +23,7 @@ public class LiquidContainer : MonoBehaviour
 
         if (!IsUpright())
         {
-            EmptyContainer();
+            EmptyContainer(emptyScaleChange);
         }        
     }
 
@@ -52,7 +52,7 @@ public class LiquidContainer : MonoBehaviour
         }
     }
 
-    private bool IsFull()
+    public bool IsFull()
     {
         if (liquid.lossyScale.y >= maxLiquidYScale)
         {
@@ -62,7 +62,7 @@ public class LiquidContainer : MonoBehaviour
         return false;
     }
 
-    private bool IsEmpty()
+    public bool IsEmpty()
     {
         if (liquid.lossyScale.y <= 0)
         {
@@ -93,22 +93,26 @@ public class LiquidContainer : MonoBehaviour
         return true;
     }
 
-    private void EmptyContainer()
+    public float GetYScale()
+    {
+        return liquid.lossyScale.y;
+    }
+
+    public void EmptyContainer(Vector3 scaleChange)
     {
         if (!isInfinite)
         {
             if (!IsEmpty())
             {
-                liquid.localScale -= emptyScaleChange;
+                liquid.localScale -= scaleChange;
 
                 if (upAxis == "z")
                 {
-                    liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
+                    liquid.localPosition -= new Vector3(0, 0, scaleChange.y);
                 } else if (upAxis == "y")
                 {
-                    liquid.localPosition -= new Vector3(0, emptyScaleChange.y, 0);
+                    liquid.localPosition -= new Vector3(0, scaleChange.y, 0);
                 }
-                
             }
         }
     }

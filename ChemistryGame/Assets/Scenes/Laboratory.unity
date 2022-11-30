@@ -1014,6 +1014,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.11, y: 0.11145903, z: 0.03}
   m_Center: {x: 0, y: 0, z: 0.014}
+--- !u!114 &368792778 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 368792775, guid: f78623d774e1224449ad553be68320b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4869675480634239695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368792768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05144654699b24884530d99c04d7e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &394651647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 522556452}
+  - component: {fileID: 522556453}
   m_Layer: 0
   m_Name: Distillation apparatus
   m_TagString: Untagged
@@ -1083,6 +1096,25 @@ Transform:
   m_Father: {fileID: 352868584}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &522556453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522556451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214bdb47c600e464098030ec4932c0bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  retortSocket: {fileID: 1566850990}
+  furnaceSocket: {fileID: 1980962365}
+  fire: {fileID: 1450767302}
+  flask: {fileID: 344427057}
+  retort: {fileID: 368792778}
+  newMaterial: {fileID: 2100000, guid: fa2158b573be5f54c84f39854a008d47, type: 2}
+  newLiquid: Spirit
 --- !u!1 &594039938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1730,7 @@ Transform:
   m_GameObject: {fileID: 808474266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.035, z: 0.05}
+  m_LocalScale: {x: 0.05, y: 0, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 344427056}
@@ -2672,6 +2704,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1217974853}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1566850990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4869675480507759957, guid: f78623d774e1224449ad553be68320b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4869675480634239695}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1569649125
 GameObject:
   m_ObjectHideFlags: 0
