@@ -3479,11 +3479,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 63443360, guid: 09dfc90165134f546acff417ed077124, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 0.5
+      value: 0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 155098676, guid: 09dfc90165134f546acff417ed077124, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 155098676, guid: 09dfc90165134f546acff417ed077124, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.212
       objectReference: {fileID: 0}
     - target: {fileID: 155098678, guid: 09dfc90165134f546acff417ed077124, type: 3}
       propertyPath: m_Intensity
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 590602620, guid: 09dfc90165134f546acff417ed077124, type: 3}
       propertyPath: m_LocalScale.x
