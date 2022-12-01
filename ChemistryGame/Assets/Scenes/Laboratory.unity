@@ -1104,7 +1104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   socket: {fileID: 1566850990}
   interactable: {fileID: 344427049}
-  controller: {fileID: 364578166}
+  leftController: {fileID: 364578166}
+  rightController: {fileID: 712900742}
 --- !u!1001 &388774699
 PrefabInstance:
   m_ObjectHideFlags: 0
