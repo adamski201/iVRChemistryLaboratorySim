@@ -12,8 +12,8 @@ public class DistillationController : MonoBehaviour
     public LiquidContainer retort;
     public Material newMaterial;
     public string newLiquid;
-    private Vector3 fillScaleChange = new(0, 0.00005f, 0);
-    private Vector3 emptyScaleChange = new(0, 0.00005f, 0);
+    private Vector3 fillScaleChange = new(0, 0.00001f, 0);
+    private Vector3 emptyScaleChange = new(0, 0.00001f, 0);
 
     private void Update()
     {
@@ -36,6 +36,8 @@ public class DistillationController : MonoBehaviour
 
     IEnumerator Distill()
     {
+        yield return new WaitForSeconds(1);
+
         while (retort.GetYScale() > 0.025f && flask.GetYScale() < 0.010f)
         {
             retort.EmptyContainer(emptyScaleChange);
