@@ -25,14 +25,13 @@ public class DistillationController : MonoBehaviour
 
     private bool ReactionIsReady()
     {
-        if (retortSocket.hasSelection && furnaceSocket.hasSelection && fire.activeSelf 
-            && retort.IsFull() && retort.fluidName == "Green" && flask.IsEmpty()
-            && flask.fluidName == null)
-        {
-            return true;
-        }
-
-        return false;
+        return retortSocket.hasSelection &&
+               furnaceSocket.hasSelection &&
+               fire.activeSelf &&
+               retort.IsFull() &&
+               retort.fluidName == "Green" &&
+               flask.IsEmpty() &&
+               flask.fluidName == null;
     }
 
     IEnumerator Distill()
@@ -43,11 +42,5 @@ public class DistillationController : MonoBehaviour
             flask.FillContainer(fillScaleChange, "Black", newMaterial);
             yield return null;
         }
-        
     }
-    
-
-
-
-    
 }
