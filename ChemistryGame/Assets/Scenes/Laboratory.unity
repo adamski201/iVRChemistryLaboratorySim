@@ -1026,6 +1026,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a05144654699b24884530d99c04d7e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &368792785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368792768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e4855a370feb8a4885b39aa29a1c6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  socket: {fileID: 1566850990}
+  interactable: {fileID: 344427049}
+  controller: {fileID: 364578166}
 --- !u!1 &394651647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,11 +1125,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   retortSocket: {fileID: 1566850990}
   furnaceSocket: {fileID: 1980962365}
-  fire: {fileID: 1450767302}
+  fire: {fileID: 590602619}
   flask: {fileID: 344427057}
   retort: {fileID: 368792778}
   newMaterial: {fileID: 2100000, guid: fa2158b573be5f54c84f39854a008d47, type: 2}
   newLiquid: Spirit
+--- !u!1 &590602619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 590602619, guid: 09dfc90165134f546acff417ed077124,
+    type: 3}
+  m_PrefabInstance: {fileID: 264413274836217212}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &594039938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,12 +2627,6 @@ Transform:
   m_Father: {fileID: 1738286499}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1450767302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1450767302, guid: 09dfc90165134f546acff417ed077124,
-    type: 3}
-  m_PrefabInstance: {fileID: 264413274836217212}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1453555752 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3086894126864426212, guid: e84473a4e738e2f4eb9a83314a6384a0,
@@ -3490,8 +3505,16 @@ PrefabInstance:
       value: 0.212
       objectReference: {fileID: 0}
     - target: {fileID: 155098678, guid: 09dfc90165134f546acff417ed077124, type: 3}
+      propertyPath: m_Range
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 155098678, guid: 09dfc90165134f546acff417ed077124, type: 3}
       propertyPath: m_Intensity
-      value: 0.4
+      value: 0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 155098678, guid: 09dfc90165134f546acff417ed077124, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 590602620, guid: 09dfc90165134f546acff417ed077124, type: 3}
       propertyPath: m_LocalScale.x
@@ -3803,6 +3826,11 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 139200558}
+    - target: {fileID: 4869675480507759958, guid: f78623d774e1224449ad553be68320b6,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 4869675482221730151, guid: f78623d774e1224449ad553be68320b6,
         type: 3}
       propertyPath: m_Height
