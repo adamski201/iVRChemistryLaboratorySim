@@ -7,7 +7,8 @@ public class SocketMonitor : MonoBehaviour
 {
     [SerializeField] XRSocketInteractor socket;
     [SerializeField] XRGrabInteractable interactable;
-    [SerializeField] XRDirectInteractor controller;
+    [SerializeField] XRDirectInteractor leftController;
+    [SerializeField] XRDirectInteractor rightController;
     private bool selectedByPlayer = false;
 
     private void Start()
@@ -21,7 +22,7 @@ public class SocketMonitor : MonoBehaviour
 
     private void onSelectEnter(SelectEnterEventArgs args)
     {
-        if (args.interactorObject == controller)
+        if (args.interactorObject == leftController || args.interactorObject == rightController)
         {
             selectedByPlayer = true;
             socket.socketActive = true;
@@ -30,7 +31,7 @@ public class SocketMonitor : MonoBehaviour
 
     private void onSelectExit(SelectExitEventArgs args)
     {
-        if (args.interactorObject == controller)
+        if (args.interactorObject == leftController || args.interactorObject == rightController)
         {
             selectedByPlayer = false;
         }
