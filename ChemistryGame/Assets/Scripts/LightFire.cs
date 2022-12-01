@@ -44,18 +44,21 @@ public class LightFire : MonoBehaviour
                     strongFire.SetActive(false);
                     lastCoalCount = 1;
                     break;
+
                 case 2:
                     mediumFire.SetActive(true);
                     weakFire.SetActive(false);
                     strongFire.SetActive(false);
                     lastCoalCount = 2;
                     break;
+
                 case 3:
                     strongFire.SetActive(true);
                     weakFire.SetActive(false);
                     mediumFire.SetActive(false);
                     lastCoalCount = 3;
                     break;
+
                 default:
                     weakFire.SetActive(false);
                     mediumFire.SetActive(false);
