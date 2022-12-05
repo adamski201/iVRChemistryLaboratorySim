@@ -253,8 +253,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!135 &6191947494269004961
-SphereCollider:
+--- !u!65 &7505674947923189758
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -264,8 +264,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.46819448, y: 0.45329213, z: 0.4933357}
+  m_Center: {x: -0.0017678738, y: 0.003915429, z: 0.003332179}
 --- !u!4 &5266400833731668278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49d4fbaa53ed11d41ae6561cf73c76b1,
