@@ -11610,6 +11610,11 @@ PrefabInstance:
       propertyPath: fluidName
       value: Green
       objectReference: {fileID: 0}
+    - target: {fileID: 6111628626000364830, guid: 7fb74c8262ec3c14e931c0b868540c91,
+        type: 3}
+      propertyPath: maxLiquidYScale
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 7761833879174462930, guid: 7fb74c8262ec3c14e931c0b868540c91,
         type: 3}
       propertyPath: m_Name
