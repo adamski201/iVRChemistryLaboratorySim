@@ -7,6 +7,8 @@ TagManager:
   - LiquidContainer
   - PourPoint
   - Liquid
+  - ShatteredGlass
+  - SolidEntryPoint
   layers:
   - Default
   - TransparentFX
