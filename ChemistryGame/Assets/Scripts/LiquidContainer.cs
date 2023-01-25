@@ -9,8 +9,11 @@ public class LiquidContainer : MonoBehaviour
     public Transform liquid;
     public string fluidName;
     public bool isInfinite;
-    private Vector3 emptyScaleChange = new(0, 0.001f, 0);
+    public bool containsAntiBumpGranules;
+    public Vector3 emptyScaleChange = new(0, 0.001f, 0);
+    public Vector3 fillScaleChange = new(0, 0.0005f, 0);
     private MeshRenderer liquidMesh;
+    
 
     private void Start()
     {
@@ -23,11 +26,11 @@ public class LiquidContainer : MonoBehaviour
 
         if (!IsUpright())
         {
-            EmptyContainer(emptyScaleChange);
+            EmptyContainer();
         }        
     }
 
-    public void FillContainer(Vector3 scaleChange, string newliquidName, Material newliquidMaterial)
+    public void FillContainer(string newliquidName, Material newliquidMaterial)
     {
         if (IsEmpty())
         {
@@ -39,14 +42,14 @@ public class LiquidContainer : MonoBehaviour
         {
             if (!IsFull())
             {
-                liquid.localScale += scaleChange;
+                liquid.localScale += fillScaleChange;
 
                 if (upAxis == "z")
                 {
-                    liquid.localPosition += new Vector3(0, 0, scaleChange.y);
+                    liquid.localPosition += new Vector3(0, 0, fillScaleChange.y);
                 } else if (upAxis == "y")
                 {
-                    liquid.localPosition += new Vector3(0, scaleChange.y, 0);
+                    liquid.localPosition += new Vector3(0, fillScaleChange.y, 0);
                 }
             }
         }
@@ -98,20 +101,20 @@ public class LiquidContainer : MonoBehaviour
         return liquid.lossyScale.y;
     }
 
-    public void EmptyContainer(Vector3 scaleChange)
+    public void EmptyContainer()
     {
         if (!isInfinite)
         {
             if (!IsEmpty())
             {
-                liquid.localScale -= scaleChange;
+                liquid.localScale -= emptyScaleChange;
 
                 if (upAxis == "z")
                 {
-                    liquid.localPosition -= new Vector3(0, 0, scaleChange.y);
+                    liquid.localPosition -= new Vector3(0, 0, emptyScaleChange.y);
                 } else if (upAxis == "y")
                 {
-                    liquid.localPosition -= new Vector3(0, scaleChange.y, 0);
+                    liquid.localPosition -= new Vector3(0, emptyScaleChange.y, 0);
                 }
             }
         }
@@ -128,5 +131,10 @@ public class LiquidContainer : MonoBehaviour
         {
             liquid.gameObject.SetActive(true);
         }
+    }
+
+    public void addBumpGranules()
+    {
+        containsAntiBumpGranules = true;
     }
 }

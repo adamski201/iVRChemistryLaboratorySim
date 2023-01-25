@@ -16,10 +16,10 @@ public class CondenserController : MonoBehaviour
     {
         if (intake.hasSelection && outtake.hasSelection && dial.Value <= 0.2)
         {
-            condenser.FillContainer(scaleChange, "Water", material);
+            condenser.FillContainer("Water", material);
         } else
         {
-            condenser.EmptyContainer(scaleChange);
+            condenser.EmptyContainer();
         }
     }
 

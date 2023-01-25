@@ -40,8 +40,8 @@ public class DistillationController : MonoBehaviour
 
         while (retort.GetYScale() > 0.025f && flask.GetYScale() < 0.010f)
         {
-            retort.EmptyContainer(emptyScaleChange);
-            flask.FillContainer(fillScaleChange, "Black", newMaterial);
+            retort.EmptyContainer();
+            flask.FillContainer("Black", newMaterial);
             yield return null;
         }
     }
