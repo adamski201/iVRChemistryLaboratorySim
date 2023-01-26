@@ -24,8 +24,13 @@ public class PourLiquid : MonoBehaviour
         if (other.CompareTag("PourPoint") && !thisContainer.IsEmpty())
         {
             LiquidContainer receiverContainer = other.transform.parent.GetComponent<LiquidContainer>();
-            receiverContainer.FillContainer(liquidName, liquidMaterial);
-            thisContainer.EmptyContainer();
+
+            if (!receiverContainer.IsFull())
+            {
+                receiverContainer.FillContainer(liquidName, liquidMaterial);
+                thisContainer.EmptyContainer();
+            }
+            
         }
     }
 }
