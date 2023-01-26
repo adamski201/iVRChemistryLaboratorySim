@@ -8,6 +8,8 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private XRSocketInteractor standSocket;
     [SerializeField] private XRSocketInteractor hotplateSocket;
     [SerializeField] private XRSocketInteractor flaskSocket;
+    [SerializeField] private XRSocketInteractor outtakeSocket;
+    [SerializeField] private XRSocketInteractor intakeSocket;
     [SerializeField] private LiquidContainer flask;
     [SerializeField] private LiquidContainer condenser;
     [SerializeField] private DialInteractable heatDial;
@@ -29,6 +31,8 @@ public class RefluxController : MonoBehaviour
         return standSocket.hasSelection &&
                hotplateSocket.hasSelection &&
                flaskSocket.hasSelection &&
+               outtakeSocket.hasSelection &&
+               intakeSocket.hasSelection &&
                flask.containsAntiBumpGranules &&
                condenser.IsFull() &&
                flask.IsFull() &&
