@@ -5,13 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RefluxController : MonoBehaviour
 {
-    [SerializeField] private XRSocketInteractor standSocket;
+    [SerializeField] private ClampController clamp;
     [SerializeField] private XRSocketInteractor hotplateSocket;
     [SerializeField] private XRSocketInteractor flaskSocket;
-    [SerializeField] private XRSocketInteractor outtakeSocket;
-    [SerializeField] private XRSocketInteractor intakeSocket;
+    [SerializeField] private CondenserController condenser;
     [SerializeField] private LiquidContainer flask;
-    [SerializeField] private LiquidContainer condenser;
     [SerializeField] private DialInteractable heatDial;
     [SerializeField] private ParticleSystem boilingEffect;
 
@@ -28,13 +26,11 @@ public class RefluxController : MonoBehaviour
 
     private bool ReactionIsReady()
     {
-        return standSocket.hasSelection &&
+        return clamp.isCorrect &&
                hotplateSocket.hasSelection &&
                flaskSocket.hasSelection &&
-               outtakeSocket.hasSelection &&
-               intakeSocket.hasSelection &&
+               condenser.isReady &&
                flask.containsAntiBumpGranules &&
-               condenser.IsFull() &&
                flask.IsFull() &&
                heatDial.Value <= 0.5 &&
                heatDial.Value >= 0.2;
