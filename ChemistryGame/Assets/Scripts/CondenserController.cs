@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Events;
+
 public class CondenserController : MonoBehaviour
 {
     [SerializeField] private XRSocketInteractor intakeSocket;
@@ -11,11 +13,19 @@ public class CondenserController : MonoBehaviour
     [SerializeField] private Collider intakeCollider;
     [SerializeField] private Collider outtakeCollider;
     [SerializeField] private DialInteractable dial;
-    [SerializeField] private LiquidContainer condenser;
     [SerializeField] private Material material;
-    public bool tubesAttached = false;
-    public bool tubesCorrectlyAttached = false;
-    public bool isReady = false;
+    [SerializeField] private UnityEvent incorrectTrigger;
+    [SerializeField] private UnityEvent correctTrigger;
+    private LiquidContainer condenser;
+    private bool triggered = false;
+    private bool tubesAttached = false;
+    private bool tubesCorrectlyAttached = false;
+    [HideInInspector] public bool isReady = false;
+
+    private void Start()
+    {
+        condenser = gameObject.GetComponent<LiquidContainer>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -63,10 +73,20 @@ public class CondenserController : MonoBehaviour
         if (tubesAttached && outtakePipe.localPosition.y < intakePipe.localPosition.y)
         {
             tubesCorrectlyAttached = true;
+            if (triggered)
+            {
+                correctTrigger.Invoke();
+                triggered = false;
+            }
         }
-        else
+        else if (tubesAttached && outtakePipe.localPosition.y > intakePipe.localPosition.y)
         {
             tubesCorrectlyAttached = false;
+            if (!triggered && dial.Value <= 0.2)
+            {
+                incorrectTrigger.Invoke();
+                triggered = true;
+            }
         }
     }
 
