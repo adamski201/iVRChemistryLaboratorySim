@@ -27,23 +27,11 @@ public class CondenserController : MonoBehaviour
         condenser = gameObject.GetComponent<LiquidContainer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckTubesAttached();
         HandleCondenserInternal();
         HandleSockets();
-
-        if (condenser.IsFull())
-        {
-            isReady = true;
-        } else
-        {
-            isReady = false;
-        }
-
-        Debug.Log("outtake" + outtakePipe.localPosition.y + outtakePipe.position.y);
-        Debug.Log("intake" + intakePipe.localPosition.y + intakePipe.position.y);
     }
 
     private void HandleSockets()
@@ -95,15 +83,14 @@ public class CondenserController : MonoBehaviour
         if (tubesCorrectlyAttached && dial.Value <= 0.2)
         {
             condenser.FillContainer("Water", material);
-        }
-        else if (!tubesCorrectlyAttached && dial.Value <= 0.2)
-        {
-            Debug.Log("Tubes not attached or incorrectly attached");
-            condenser.EmptyContainer();
         } else
         {
             condenser.EmptyContainer();
-        }
-       
+        }  
+    }
+
+    public bool IsReady()
+    {
+        return condenser.IsFull();
     }
 }

@@ -4,31 +4,31 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 
-public class ClampController : MonoBehaviour
+public class TubesController : MonoBehaviour
 {
-    [SerializeField] private XRSocketInteractor correctSocket;
-    [SerializeField] private XRSocketInteractor incorrectSocket;
+    [SerializeField] private XRSocketInteractor outletSocket;
+    [SerializeField] private XRSocketInteractor inletSocket;
     [SerializeField] private UnityEvent correctTrigger;
     [SerializeField] private UnityEvent incorrectTrigger;
-    [SerializeField] private XRSocketInteractor flaskSocket;
+    [SerializeField] private LiquidContainer condenser;
     private bool triggered = false;
 
     private void Update()
     {
-        if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered)
+        HandleTriggers();
+    }
+
+    private void HandleTriggers()
+    {
+        if (!triggered && (!outletSocket.hasSelection || !inletSocket.hasSelection) && condenser.IsFull())
         {
             incorrectTrigger.Invoke();
             triggered = true;
-        } else if (flaskSocket.hasSelection && correctSocket.hasSelection && triggered)
+            
+        } else if (triggered && outletSocket.hasSelection && inletSocket.hasSelection)
         {
             correctTrigger.Invoke();
             triggered = false;
         }
     }
-
-    public bool IsReady()
-    {
-        return correctSocket.hasSelection;
-    }
-
 }
