@@ -19,6 +19,7 @@ public class RefluxController : MonoBehaviour
         HandleReflux();
     }
 
+    // Handles logic for starting heating under reflux.
     private void HandleReflux()
     {
         if (!refluxBegun && ReactionIsReady())
@@ -33,6 +34,7 @@ public class RefluxController : MonoBehaviour
         }
     }
 
+    // Checks if the apparatus has been set up correctly
     private bool ReactionIsReady()
     {
         return clamp.IsReady() &&
