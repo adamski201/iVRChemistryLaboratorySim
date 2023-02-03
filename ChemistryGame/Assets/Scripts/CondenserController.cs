@@ -16,6 +16,7 @@ public class CondenserController : MonoBehaviour
     [SerializeField] private Material material;
     [SerializeField] private UnityEvent incorrectTrigger;
     [SerializeField] private UnityEvent correctTrigger;
+    private AudioSource audioSource;
     private LiquidContainer condenser;
     private bool triggered = false;
     private bool tubesAttached = false;
@@ -24,7 +25,8 @@ public class CondenserController : MonoBehaviour
 
     private void Start()
     {
-        condenser = gameObject.GetComponent<LiquidContainer>();
+        condenser = GetComponent<LiquidContainer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -83,14 +85,32 @@ public class CondenserController : MonoBehaviour
         if (tubesCorrectlyAttached && dial.Value <= 0.2)
         {
             condenser.FillContainer("Water", material);
+            PlayAudio();
         } else
         {
             condenser.EmptyContainer();
+            PauseAudio();
         }  
     }
 
     public bool IsReady()
     {
         return condenser.IsFull();
+    }
+
+    private void PlayAudio()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+    }
+
+    private void PauseAudio()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Pause();
+        }
     }
 }

@@ -10,15 +10,26 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private FlaskController flask;
     [SerializeField] private DialInteractable heatDial;
     [SerializeField] private ParticleSystem boilingEffect;
+    [SerializeField] private AudioSource successSFX;
+    [SerializeField] private AudioSource boilingSFX;
+    private bool refluxBegun;
 
     private void Update()
     {
-        if (ReactionIsReady())
+        HandleReflux();
+    }
+
+    private void HandleReflux()
+    {
+        if (!refluxBegun && ReactionIsReady())
         {
-            boilingEffect.gameObject.SetActive(true);
-        } else
+            refluxBegun = true;
+            StartCoroutine(Reflux());
+        }
+        else if (refluxBegun && !ReactionIsReady())
         {
             boilingEffect.gameObject.SetActive(false);
+            boilingSFX.Pause();
         }
     }
 
@@ -29,5 +40,13 @@ public class RefluxController : MonoBehaviour
                condenser.IsReady() &&
                heatDial.Value <= 0.5 &&
                heatDial.Value >= 0.2;
+    }
+
+    IEnumerator Reflux()
+    {
+        yield return new WaitForSeconds(1.5f);
+        successSFX.Play();
+        boilingSFX.Play();
+        boilingEffect.gameObject.SetActive(true);
     }
 }

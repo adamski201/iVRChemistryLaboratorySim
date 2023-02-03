@@ -51,6 +51,7 @@ public class Breakable : MonoBehaviour {
 
 	public AudioClip[] ShatterSoundClips;
 	public AudioClip[] CrackSoundClips;
+	[SerializeField] private float scaleChange = 0.01f;
 
 
 
@@ -216,7 +217,7 @@ The following 'Break' coroutine contains most of the logic for this script
 
 			Broken = true;
 
-			NewReplacement.transform.localScale = this.transform.localScale;
+			NewReplacement.transform.localScale = this.transform.localScale*scaleChange;
 
 //3.		Stores all the shard's materials in an array. Orignally just for automatically setting the material of the shards based on the material of the origina
 			//could use these mats to do all kinds of stuff I couldn't possibly predict. 

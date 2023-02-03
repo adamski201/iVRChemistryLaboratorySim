@@ -15,20 +15,26 @@ public class ClampController : MonoBehaviour
 
     private void Update()
     {
-        if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered)
-        {
-            incorrectTrigger.Invoke();
-            triggered = true;
-        } else if (flaskSocket.hasSelection && correctSocket.hasSelection && triggered)
-        {
-            correctTrigger.Invoke();
-            triggered = false;
-        }
+        HandleTriggers();
     }
 
     public bool IsReady()
     {
         return correctSocket.hasSelection;
+    }
+
+    private void HandleTriggers()
+    {
+        if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered)
+        {
+            incorrectTrigger.Invoke();
+            triggered = true;
+        }
+        else if (flaskSocket.hasSelection && correctSocket.hasSelection && triggered)
+        {
+            correctTrigger.Invoke();
+            triggered = false;
+        }
     }
 
 }
