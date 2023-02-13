@@ -7,6 +7,7 @@ public class VialController : MonoBehaviour
 {
     [SerializeField] private Collider vialGrabCollider;
     [SerializeField] private XRGrabInteractable vial;
+    [SerializeField] private XRSocketInteractor socket;
     [SerializeField] XRDirectInteractor leftController;
     [SerializeField] XRDirectInteractor rightController;
 
@@ -27,7 +28,7 @@ public class VialController : MonoBehaviour
 
     private void onSelectExit(SelectExitEventArgs args)
     {
-        if (args.interactorObject == leftController || args.interactorObject == rightController)
+        if (socket.hasSelection && (args.interactorObject == leftController || args.interactorObject == rightController))
         {
             vialGrabCollider.gameObject.SetActive(false);
         }

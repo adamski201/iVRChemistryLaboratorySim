@@ -13,8 +13,6 @@ public class FlaskController : MonoBehaviour
     [SerializeField] private UnityEvent hasGranulesTrigger;
     private bool triggered = false;
 
-
-
     private void Start()
     {
         flask = GetComponent<LiquidContainer>();
@@ -33,14 +31,15 @@ public class FlaskController : MonoBehaviour
 
     private void HandleTriggers()
     {
-        if (!flask.containsAntiBumpGranules && flaskSocket.hasSelection && !triggered)
+        if (!triggered && !flask.containsAntiBumpGranules && flaskSocket.hasSelection)
         {
             noGranulesTrigger.Invoke();
             triggered = true;
         }
-        else if (flask.containsAntiBumpGranules && triggered)
+        else if (triggered && flask.containsAntiBumpGranules)
         {
             hasGranulesTrigger.Invoke();
+            triggered = false;
         }
     }
 }
