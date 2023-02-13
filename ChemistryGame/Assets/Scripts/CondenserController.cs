@@ -38,7 +38,7 @@ public class CondenserController : MonoBehaviour
 
     private void HandleSockets()
     {
-        if (dial.Value < 0.2)
+        if (dial.Value < 0.2 && tubesAttached)
         {
             intakeCollider.gameObject.SetActive(false);
             outtakeCollider.gameObject.SetActive(false);
