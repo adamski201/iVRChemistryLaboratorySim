@@ -42,6 +42,8 @@ public class CondenserController : MonoBehaviour
     private AudioSource audioSource;
     private LiquidContainer condenser;
 
+    // -----------------FUNCTIONS----------------------------------------------------------------------------------------------------
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -95,7 +97,7 @@ public class CondenserController : MonoBehaviour
                 triggered = false;
             }
         }
-        else if (tubesAttached && outtakePipe.localPosition.y > intakePipe.localPosition.y)
+        else if (tubesAttached && outtakePipe.localPosition.y > intakePipe.localPosition.y + 0.1866)
         {
             tubesCorrectlyAttached = false;
             if (!triggered && dial.Value <= 0.2)
