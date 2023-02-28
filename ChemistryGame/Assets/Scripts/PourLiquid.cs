@@ -8,19 +8,14 @@ public class PourLiquid : MonoBehaviour
     // if I had more time/wanted to expand the project
 
     public GameObject liquid;
-    private string liquidName;
-    private Material liquidMaterial;
     private LiquidContainer thisContainer;
+    private MeshRenderer mesh;
 
     private void Start()
     {
-        // Initialize scripts and variables
-        liquidName = liquid.name;
+        // Initialize objects
         thisContainer = gameObject.GetComponent<LiquidContainer>();
-
-        MeshRenderer mesh = liquid.GetComponent<MeshRenderer>();
-        liquidMaterial = mesh.material;
-
+        mesh = liquid.GetComponent<MeshRenderer>();
     }
 
     // Fills receiver container when the colliders are intersecting
@@ -32,7 +27,7 @@ public class PourLiquid : MonoBehaviour
 
             if (!receiverContainer.IsFull())
             {
-                receiverContainer.FillContainer(liquidName, liquidMaterial);
+                receiverContainer.FillContainer(liquid.name, mesh.material);
                 thisContainer.EmptyContainer();
             }
             
