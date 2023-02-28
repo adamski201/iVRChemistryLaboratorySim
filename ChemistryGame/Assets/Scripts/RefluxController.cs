@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RefluxController : MonoBehaviour
 {
+    // This class monitors the state of the reflux procedure and indicates success when complete
+
     [SerializeField] private ClampController clamp;
     [SerializeField] private CondenserController condenser;
     [SerializeField] private FlaskController flask;
@@ -14,12 +16,13 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private AudioSource boilingSFX;
     private bool refluxBegun;
 
+    // Update is called once per frame
     private void Update()
     {
         HandleReflux();
     }
 
-    // Handles logic for starting heating under reflux.
+    // Handles logic for starting heating under reflux
     private void HandleReflux()
     {
         if (!refluxBegun && ReactionIsReady())
@@ -44,6 +47,7 @@ public class RefluxController : MonoBehaviour
                heatDial.Value >= 0.2;
     }
 
+    // IEnumerator allows execution over several frames
     IEnumerator Reflux()
     {
         yield return new WaitForSeconds(1.5f);

@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class LightFire : MonoBehaviour
 {
+    // CLASS IS DEPRECATED. Preserved for posterity. This class was part of the project's prototype.
+
     public XRSocketInteractor socket1;
     public XRSocketInteractor socket2;
     public XRSocketInteractor socket3;

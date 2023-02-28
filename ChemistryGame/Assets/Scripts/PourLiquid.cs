@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PourLiquid : MonoBehaviour
 {
+    // Handles liquid pouring behaviour. Ideally will be refactored into the LiquidContainer class
+    // if I had more time/wanted to expand the project
+
     public GameObject liquid;
     private string liquidName;
     private Material liquidMaterial;
@@ -11,6 +14,7 @@ public class PourLiquid : MonoBehaviour
 
     private void Start()
     {
+        // Initialize scripts and variables
         liquidName = liquid.name;
         thisContainer = gameObject.GetComponent<LiquidContainer>();
 
@@ -19,6 +23,7 @@ public class PourLiquid : MonoBehaviour
 
     }
 
+    // Fills receiver container when the colliders are intersecting
     private void OnTriggerStay(Collider other)
     {   
         if (other.CompareTag("PourPoint") && !thisContainer.IsEmpty())

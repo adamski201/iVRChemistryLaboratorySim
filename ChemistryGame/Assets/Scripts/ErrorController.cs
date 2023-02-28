@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ErrorController : MonoBehaviour
 {
-    // This class displays error messages on the whiteboard when an error event is triggered.
-    // Correction event triggers will hide the associated error.
+    // This class displays error messages on the whiteboard when an error event is triggered
+    // Correction event triggers will hide the associated error
 
     [SerializeField] private GameObject waterTubesError;
     [SerializeField] private GameObject bumpingError;
