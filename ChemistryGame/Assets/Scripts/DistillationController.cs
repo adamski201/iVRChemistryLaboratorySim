@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class DistillationController : MonoBehaviour
 {
+    // CLASS IS DEPRECATED. Preserved for posterity. This class was part of the project's prototype.
+
     public XRSocketInteractor retortSocket;
     public XRSocketInteractor furnaceSocket;
     public GameObject fire;
@@ -12,8 +14,6 @@ public class DistillationController : MonoBehaviour
     public LiquidContainer retort;
     public Material newMaterial;
     public string newLiquid;
-    private Vector3 fillScaleChange = new(0, 0.00001f, 0);
-    private Vector3 emptyScaleChange = new(0, 0.00001f, 0);
 
     private void Update()
     {

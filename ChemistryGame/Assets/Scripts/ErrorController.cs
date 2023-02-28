@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ErrorController : MonoBehaviour
 {
+    // This class displays error messages on the whiteboard when an error event is triggered.
+    // Correction event triggers will hide the associated error.
+
     [SerializeField] private GameObject waterTubesError;
     [SerializeField] private GameObject bumpingError;
     [SerializeField] private GameObject wiresError;
@@ -11,15 +14,20 @@ public class ErrorController : MonoBehaviour
     [SerializeField] private GameObject heatError;
     [SerializeField] private GameObject stopperError;
     private AudioSource audioSource;
+
+    // True when an error is already being displayed on the board
     private bool errorActive;
 
+    // Start is called before the first frame update
     private void Start()
     {
+        // Initialize scripts
         audioSource = GetComponent<AudioSource>();
     }
 
     public void ShowWaterTubeError()
     {
+        // Prevents multiple errors being displayed on top of each other
         if (errorActive)
         {
             HideAllErrors();
