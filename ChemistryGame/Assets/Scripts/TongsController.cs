@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class TongsController : MonoBehaviour
 {
+    // CLASS IS DEPRECATED. Preserved for posterity. This class was part of the project's prototype.
+
     [SerializeField] private XRSocketInteractor tongSocket;
     private XRGrabInteractable coalObj;
 

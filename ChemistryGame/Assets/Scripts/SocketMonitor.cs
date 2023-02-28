@@ -5,6 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SocketMonitor : MonoBehaviour
 {
+    // This class is deprecated but highly useful. 
+    // It prevents grabbable objects from being socketed while not selected by the player.
+    // Essentially, it prevents unintended socketing behaviour.
+
+
     [SerializeField] XRSocketInteractor socket;
     [SerializeField] XRGrabInteractable interactable;
     [SerializeField] XRDirectInteractor leftController;
