@@ -63,7 +63,7 @@ public class CondenserController : MonoBehaviour
     // Prevents the tubes from being pulled off the condenser while the water is on
     private void HandleSockets()
     {
-        if (dial.Value < 0.2 && tubesAttached)
+        if (dial.Value > 0.2 && tubesAttached)
         {
             intakeCollider.gameObject.SetActive(false);
             outtakeCollider.gameObject.SetActive(false);
@@ -100,7 +100,7 @@ public class CondenserController : MonoBehaviour
         else if (tubesAttached && outtakePipe.localPosition.y > intakePipe.localPosition.y + 0.1866)
         {
             tubesCorrectlyAttached = false;
-            if (!triggered && dial.Value <= 0.2)
+            if (!triggered && dial.Value >= 0.2)
             {
                 incorrectTrigger.Invoke();
                 triggered = true;
@@ -111,8 +111,9 @@ public class CondenserController : MonoBehaviour
     // Fills the condenser with water when tubes are attached correctly and water is on
     private void HandleCondenserInternal()
     {        
-        if (tubesCorrectlyAttached && dial.Value <= 0.2)
-        {
+        // if (tubesCorrectlyAttached && dial.Value <= 0.2)
+         if (tubesCorrectlyAttached && dial.Value >= 0.2)
+            {
             condenser.FillContainer("Water", material);
             PlayAudio(); // Plays bubbling SFX
         } else

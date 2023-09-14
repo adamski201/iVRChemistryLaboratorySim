@@ -11,14 +11,14 @@ public class DialInteractable : XRBaseInteractable
     [Tooltip("The transform of the visual component of the knob")]
     public Transform knobTransform = null;
 
-    [Tooltip("The minimum range the knob can rotate")]
-    [Range(-180, 0)] public float minimum = -90.0f;
-
     [Tooltip("The maximum range the knob can rotate")]
-    [Range(0, 180)] public float maximum = 90.0f;
+    [Range(-180, 0)] public float maximum = -90.0f;
+
+    [Tooltip("The minimum range the knob can rotate")]
+    [Range(0, 180)] public float minimum = 90.0f;
 
     [Tooltip("The initial value of the knob")]
-    [Range(0, 1)] public float defaultValue = 0.0f;
+    [Range(0, 1)] public float defaultValue = -90.0f;
 
     [Serializable] public class ValueChangeEvent : UnityEvent<float> { }
 
