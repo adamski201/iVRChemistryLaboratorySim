@@ -23,7 +23,7 @@ public class Breakable : MonoBehaviour {
 	public bool BreakOnCollision = true;
 	//This float combines the velocity of the rigidbody of this object(if one is attached) with the velocity of the rigidbody of the object this is hitting (if one is attached)
 	//and only breaks the object if the objects' combined velocity is above this value. set value to 0 to ensure it will ALWAYS break on contact - however slow or light.
-	public float SpeedRequiredToBreak = 0f;
+	public float SpeedRequiredToBreak = 0.1f;
 
 	//Cleans up shards, giving them a random lifetime between the two values.
 	public bool CleanUpShards = true;
@@ -48,6 +48,9 @@ public class Breakable : MonoBehaviour {
 	public bool CrackBeforeShattering;
 
 	public bool PlaySound = true;
+
+	// If you only want to break when hitting objects in certain physic layers, set this.
+	public LayerMask breakLayers;
 
 	public AudioClip[] ShatterSoundClips;
 	public AudioClip[] CrackSoundClips;
@@ -152,17 +155,16 @@ public class Breakable : MonoBehaviour {
 	// into contact with a gameobject which has a collider attached, then the 'Break()' function will be called on this object. Behold!
 
 	void OnCollisionEnter (Collision other){
-
-		if (BreakOnCollision) {
 		
-			if (other.rigidbody != null) {
-				SpeedOfOther = other.rigidbody.velocity.magnitude;
-			}
-			if (ThisRigidbody != null) {	
-				SpeedOfSelf = ThisRigidbody.velocity.magnitude;
-			}
-			float CombinedSpeed = SpeedOfOther + SpeedOfSelf;
+		if (BreakOnCollision) {
+			// check the other is in a layer that can cause breaks.
+			if (this.breakLayers != (this.breakLayers | (1 << other.gameObject.layer))) return;
 
+			float CombinedSpeed = 0.0f;
+			if (other.rigidbody != null) CombinedSpeed += other.rigidbody.velocity.magnitude;
+			if (ThisRigidbody != null) CombinedSpeed += ThisRigidbody.velocity.magnitude;
+
+			
 			if (CombinedSpeed >= SpeedRequiredToBreak) {
 
 				BreakFunction ();

@@ -9,6 +9,8 @@ TagManager:
   - Liquid
   - ShatteredGlass
   - SolidEntryPoint
+  - GlassAccessory
+  - BreakableGlass
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Coal
+  - Breaking
   - Vial
   - 
   - 

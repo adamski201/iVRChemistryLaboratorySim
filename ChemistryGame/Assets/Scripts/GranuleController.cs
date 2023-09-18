@@ -13,7 +13,7 @@ public class GranuleController : MonoBehaviour
     {
         if(other.CompareTag("SolidEntryPoint"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             solidAddedTrigger.Invoke();
         }
     }
