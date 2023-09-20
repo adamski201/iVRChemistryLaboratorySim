@@ -52,10 +52,11 @@ public class NewLiquidContainer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsUpright())
+        if (!IsUpright() && !IsEmpty())
         {
             EmptyContainer();
         }
+        liquidScript.SetFillAmount(liquidAmount);
     }
 
     public bool IsFull()
@@ -83,9 +84,11 @@ public class NewLiquidContainer : MonoBehaviour
     public void EmptyContainer(float emptyRate)
     {
         if (IsEmpty()) return;
+        float oldAmount = liquidAmount;
         liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
-        
+        Debug.LogFormat("{0} to {1}", oldAmount, liquidAmount);
+
         pourRay.origin = openingCollider.bounds.min;
         Physics.Raycast(pourRay, out pourRayHit);
         if( pourRayHit.transform == null ) return; 
@@ -96,7 +99,7 @@ public class NewLiquidContainer : MonoBehaviour
         if (!hitObject.TryGetComponent<NewLiquidContainer>(out otherLC))
         {
             otherLC = GetComponentInParent<NewLiquidContainer>();
-            if (otherLC == null) return;
+            if (otherLC == null || otherLC == this) return;
         }
         otherLC.FillContainer(emptyRate);
     }

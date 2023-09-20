@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -197,10 +198,12 @@ public class Liquid : MonoBehaviour
         var r = GetComponent<Renderer>();
         if (r == null)
         {
-            Debug.LogError("No Renderer");
+            UnityEngine.Debug.LogError("No Renderer");
         }
         float scaled = r.bounds.size.y * Mathf.Clamp(newFillAmount, 0.0f, 1.0f);
         float yOffset = 0.5f + r.bounds.extents.y - scaled;
+        if (yOffset != fillAmount)
+            UnityEngine.Debug.LogFormat("Changing {0} to {1} for {2}", fillAmount, yOffset, new StackFrame(1, true).GetMethod().Name);
         fillAmount = yOffset;
     }
 }
