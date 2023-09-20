@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class NewLiquidContainer : MonoBehaviour
@@ -9,11 +10,11 @@ public class NewLiquidContainer : MonoBehaviour
     // The current proportion of liquid in the container (0.0-1.0)
     public float liquidAmount = 0.0f;
 
-    // The rate at which the container empties, per tick
-    public float emptyScaleChange = 0.001f;
+    // A value representing (roughly) the cross sectional area of the container.
+    public float flowFactor = 1.0f;
 
-    // The rate at which the container fills up, per tick
-    public float fillScaleChange = 0.005f;
+    // Default rate (if none given) for liquird to flow in/out of the container. Modified by flowFactor
+    public float defaultFlowRate = 0.001f;
 
     public float maxLiquidAmount = 0.9f;
     // which way is up. #TODO make this a vector?
@@ -25,12 +26,27 @@ public class NewLiquidContainer : MonoBehaviour
     // Can this object produce infinite amounts of liquid.
     public bool infiniteLiquid = false;
 
+    // Where does the liquid come from?
+    public GameObject opening;
+
+    private Collider openingCollider;
+    private Renderer lcRenderer;
+    private Ray pourRay;
+    private RaycastHit pourRayHit;
+
     // TODO:: Implement pouring different liquids.
 
     // Start is called before the first frame update
     void Start()
     {
         liquidScript.SetFillAmount(liquidAmount);
+        openingCollider = opening.GetComponent<Collider>();
+        if (openingCollider == null)
+            throw new Exception("Opening object lacks collider");
+        lcRenderer = GetComponent<Renderer>();
+        if (lcRenderer == null)
+            throw new Exception("Liquid Container lacks renderer");
+        pourRay = new Ray(openingCollider.bounds.min, new Vector3(0, -1, 0));
     }
 
     // Update is called once per frame
@@ -52,60 +68,54 @@ public class NewLiquidContainer : MonoBehaviour
         return liquidAmount <= 0.0f || infiniteLiquid;
     }
     
+
+
     private bool IsUpright()
     {
-        // TODO Allow defining how much tilt results in pouring? Should fillAmount figure in?
-        if (upAxis == "z" && transform.forward.y < -0.5) return false;
-        if (upAxis == "y" && transform.up.y < -0.5) return false;
-        return true;
+        return getLipPosition() >= liquidAmount;
     }
 
     public void EmptyContainer()
     {
-        EmptyContainer(emptyScaleChange);
+        EmptyContainer(defaultFlowRate);
     }
 
     public void EmptyContainer(float emptyRate)
     {
         if (IsEmpty()) return;
-        liquidAmount = Mathf.Max(liquidAmount - emptyRate, 0.0f);
+        liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
+        
+        pourRay.origin = openingCollider.bounds.min;
+        Physics.Raycast(pourRay, out pourRayHit);
+        if( pourRayHit.transform == null ) return; 
+
+        GameObject hitObject = pourRayHit.transform.gameObject;
+        NewLiquidContainer otherLC; 
+
+        if (!hitObject.TryGetComponent<NewLiquidContainer>(out otherLC))
+        {
+            otherLC = GetComponentInParent<NewLiquidContainer>();
+            if (otherLC == null) return;
+        }
+        otherLC.FillContainer(emptyRate);
     }
 
 
 
     public void FillContainer()
     {
-        FillContainer(fillScaleChange);
+        FillContainer(defaultFlowRate);
     }
 
     public void FillContainer(float fillRate) { 
         if (IsFull()) return;
-        liquidAmount = Mathf.Min(liquidAmount + fillRate, maxLiquidAmount);
+        liquidAmount = Mathf.Min(liquidAmount + (fillRate / flowFactor), maxLiquidAmount);
         liquidScript.SetFillAmount(liquidAmount);
     }
 
-    private void OnTriggerStay(Collider other)
+    private float getLipPosition()
     {
-        // check it is something we can pour into
-        if (!other.CompareTag(POURTAG) || IsEmpty()) return;
-        
-        // find what we are pouring into
-        NewLiquidContainer target = other.transform.parent.GetComponent<NewLiquidContainer>();
-        if (target == null)
-        {
-            Debug.LogError("Target object has a pour tag but no Liquid Container?");
-            return;
-        }
-
-        if( !target.IsFull() )
-        {
-            // TODO Should this be based on our pour rate?
-            float oldAmount = target.liquidAmount;
-            target.FillContainer();
-            Debug.LogFormat("Target gone from {0} to {1}", oldAmount, target.liquidAmount);
-            EmptyContainer();
-        }
-        
+        return Mathf.Clamp((openingCollider.bounds.min.y - lcRenderer.bounds.min.y) / lcRenderer.bounds.size.y, 0.0f, 1.0f);
     }
 }
