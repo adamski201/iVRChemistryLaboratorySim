@@ -53,7 +53,7 @@ public class LiquidContainer : MonoBehaviour
     public bool isInfinite;
 
     // Is true when granules are inserted into the top of the liquid.
-    [HideInInspector] public bool containsAntiBumpGranules;
+    public bool containsAntiBumpGranules;
 
     // These control the rate of emptying/filling the container.
     public Vector3 emptyScaleChange = new(0, 0.001f, 0);
@@ -206,5 +206,6 @@ public class LiquidContainer : MonoBehaviour
     public void addBumpGranules()
     {
         containsAntiBumpGranules = true;
+
     }
 }
