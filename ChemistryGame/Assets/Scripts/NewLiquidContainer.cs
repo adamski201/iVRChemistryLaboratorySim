@@ -84,10 +84,8 @@ public class NewLiquidContainer : MonoBehaviour
     public void EmptyContainer(float emptyRate)
     {
         if (IsEmpty()) return;
-        float oldAmount = liquidAmount;
         liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
-        Debug.LogFormat("{0} to {1}", oldAmount, liquidAmount);
 
         pourRay.origin = openingCollider.bounds.min;
         Physics.Raycast(pourRay, out pourRayHit);
