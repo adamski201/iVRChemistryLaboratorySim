@@ -32,8 +32,7 @@ public class NewLiquidContainer : MonoBehaviour
     private Collider openingCollider;
     private Renderer lcRenderer;
     private Ray pourRay;
-    private RaycastHit pourRayHit;
-
+    
     // TODO:: Implement pouring different liquids.
 
     // Start is called before the first frame update
@@ -87,19 +86,26 @@ public class NewLiquidContainer : MonoBehaviour
         liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
 
+        NewLiquidContainer otherLC;
+
         pourRay.origin = openingCollider.bounds.min;
-        Physics.Raycast(pourRay, out pourRayHit);
-        if( pourRayHit.transform == null ) return; 
-
-        GameObject hitObject = pourRayHit.transform.gameObject;
-        NewLiquidContainer otherLC; 
-
-        if (!hitObject.TryGetComponent<NewLiquidContainer>(out otherLC))
+        RaycastHit[] raycastHits = Physics.RaycastAll(pourRay);
+        foreach (RaycastHit raycastHit in raycastHits)
         {
-            otherLC = GetComponentInParent<NewLiquidContainer>();
-            if (otherLC == null || otherLC == this) return;
+            if (raycastHit.transform == null) continue;
+            GameObject hitObject = raycastHit.transform.gameObject;
+            otherLC = hitObject.GetComponent<NewLiquidContainer>();
+            if (otherLC == null)
+            {
+                otherLC = GetComponentInParent<NewLiquidContainer>();
+            }
+            // TODO:: I think this means we can pour through a desk. Oops.
+            if (otherLC != null && otherLC != this)
+            {
+                otherLC.FillContainer(emptyRate);
+                return;
+            }
         }
-        otherLC.FillContainer(emptyRate);
     }
 
 
