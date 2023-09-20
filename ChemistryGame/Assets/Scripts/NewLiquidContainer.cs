@@ -17,8 +17,6 @@ public class NewLiquidContainer : MonoBehaviour
     public float defaultFlowRate = 0.001f;
 
     public float maxLiquidAmount = 0.9f;
-    // which way is up. #TODO make this a vector?
-    public string upAxis = "z";
 
     // The object we are filling/empting. #TODO Can we move this to the object and introspect?
     public Liquid liquidScript;
@@ -45,7 +43,7 @@ public class NewLiquidContainer : MonoBehaviour
         lcRenderer = GetComponent<Renderer>();
         if (lcRenderer == null)
             throw new Exception("Liquid Container lacks renderer");
-        pourRay = new Ray(openingCollider.bounds.min, new Vector3(0, -1, 0));
+        pourRay = new Ray(getPourOrigin(), new Vector3(0, -1, 0));
     }
 
     // Update is called once per frame
@@ -55,6 +53,7 @@ public class NewLiquidContainer : MonoBehaviour
         {
             EmptyContainer();
         }
+        // TODO:: wrap in test to see if needed?
         liquidScript.SetFillAmount(liquidAmount);
     }
 
@@ -67,8 +66,6 @@ public class NewLiquidContainer : MonoBehaviour
     {
         return liquidAmount <= 0.0f || infiniteLiquid;
     }
-    
-
 
     private bool IsUpright()
     {
@@ -80,15 +77,37 @@ public class NewLiquidContainer : MonoBehaviour
         EmptyContainer(defaultFlowRate);
     }
 
+    private Vector3 getPourOrigin()
+    {
+        return openingCollider.bounds.min;
+        /*
+        float lowestY = float.MaxValue;
+        Vector3 result = Vector3.zero;
+
+        foreach( Vector3 v in opening.GetComponent<MeshFilter>().mesh.vertices)
+        {
+            Vector3 candidate = transform.TransformPoint(v);
+
+            if( candidate.y < lowestY)
+            {
+                lowestY = candidate.y;
+                result = candidate;
+            }
+        }
+
+        return result;*/
+    }
+
     public void EmptyContainer(float emptyRate)
     {
         if (IsEmpty()) return;
+        float oldLA = liquidAmount;
         liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
 
         NewLiquidContainer otherLC;
 
-        pourRay.origin = openingCollider.bounds.min;
+        pourRay.origin = getPourOrigin();
         RaycastHit[] raycastHits = Physics.RaycastAll(pourRay);
         foreach (RaycastHit raycastHit in raycastHits)
         {
