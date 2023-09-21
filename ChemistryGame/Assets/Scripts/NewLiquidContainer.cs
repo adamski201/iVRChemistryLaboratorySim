@@ -41,15 +41,15 @@ public class NewLiquidContainer : MonoBehaviour
             // liquid script not specified. Try and find it.
             liquidScript = GetComponentInChildren<Liquid>();
             if (liquidScript == null)
-                throw new Exception("Liquid script not found");
+                throw new Exception(string.Format("Liquid script not found in {0}", gameObject.name));
         } 
         liquidScript.SetFillAmount(liquidAmount);
         openingCollider = opening.GetComponent<Collider>();
         if (openingCollider == null)
-            throw new Exception("Opening object lacks collider");
+            throw new Exception(string.Format("Opening object lacks collider in {0}", gameObject.name));
         lcRenderer = GetComponent<Renderer>();
         if (lcRenderer == null)
-            throw new Exception("Liquid Container lacks renderer");
+            throw new Exception(string.Format("Liquid Container lacks renderer in {0}", gameObject.name));
         pourRay = new Ray(getPourOrigin(), new Vector3(0, -1, 0));
     }
 

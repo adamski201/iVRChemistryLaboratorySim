@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+#pragma warning disable CS0252 // Possible unintended reference comparison; left hand side needs cast
 
 public class VialController : MonoBehaviour
 {
@@ -50,3 +51,4 @@ public class VialController : MonoBehaviour
         }
     }
 }
+#pragma warning enable CS0252 // Possible unintended reference comparison; left hand side needs cast

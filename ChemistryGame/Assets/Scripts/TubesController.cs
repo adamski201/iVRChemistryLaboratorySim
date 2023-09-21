@@ -12,7 +12,7 @@ public class TubesController : MonoBehaviour
     [SerializeField] private XRSocketInteractor inletSocket;
     [SerializeField] private UnityEvent correctTrigger;
     [SerializeField] private UnityEvent incorrectTrigger;
-    [SerializeField] private LiquidContainer condenser;
+    [SerializeField] private NewLiquidContainer condenser;
     private bool triggered = false;
 
     private void Update()

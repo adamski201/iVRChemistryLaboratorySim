@@ -21,13 +21,15 @@ public class FlaskController : MonoBehaviour
     // Ensures that the Unity Events are triggered only once
     private bool triggered = false;
 
-    private LiquidContainer flask;
+    private SolidHolder granuleHolder;
+    private NewLiquidContainer flask;
 
     // Start is called before the first frame update
     private void Start()
     {
         // Initialize script
-        flask = GetComponent<LiquidContainer>();
+        flask = GetComponent<NewLiquidContainer>();
+        granuleHolder = GetComponentInChildren<SolidHolder>();
     }
 
     // Update is called once per frame
@@ -40,24 +42,29 @@ public class FlaskController : MonoBehaviour
     public bool IsReady()
     {
         return flask.IsFull() && hotplateSocket.hasSelection &&
-               flaskSocket.hasSelection && flask.containsAntiBumpGranules;
+               flaskSocket.hasSelection && HasAntiBumpingGranules();
     }
 
     // Monitors state of flask for event triggers
     private void HandleTriggers()
     {
         // If the condenser has been attached when no anti-bumping granules are contained in the flask, triggers error event
-        if (!triggered && !flask.containsAntiBumpGranules && flaskSocket.hasSelection)
+        if (!triggered && !HasAntiBumpingGranules() && flaskSocket.hasSelection)
         {
             noGranulesTrigger.Invoke();
             triggered = true;
         }
 
         // Triggers correction event when anti-bump granules are then added
-        else if (triggered && flask.containsAntiBumpGranules)
+        else if (triggered && HasAntiBumpingGranules())
         {
             hasGranulesTrigger.Invoke();
             triggered = false;
         }
+    }
+    public bool HasAntiBumpingGranules()
+    {
+        // As this is a simple experiment, the only solid _is_ bumping granules.
+        return !granuleHolder.IsEmpty();
     }
 }

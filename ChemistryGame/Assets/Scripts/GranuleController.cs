@@ -23,9 +23,7 @@ public class GranuleController : MonoBehaviour
             gameObject.transform.localPosition = 0.005f * Random.insideUnitSphere;
             
             gameObject.transform.rotation = new Quaternion();
-            gameObject.layer = LayerMask.NameToLayer("Granules");
-            solidAddedTrigger.Invoke();
-            
+            gameObject.layer = LayerMask.NameToLayer("Granules");     
         }
     }
 }

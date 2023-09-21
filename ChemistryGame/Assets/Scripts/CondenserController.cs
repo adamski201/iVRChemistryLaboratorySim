@@ -40,7 +40,7 @@ public class CondenserController : MonoBehaviour
     private bool tubesCorrectlyAttached = false;
 
     private AudioSource audioSource;
-    private LiquidContainer condenser;
+    private NewLiquidContainer condenser;
 
     // -----------------FUNCTIONS----------------------------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ public class CondenserController : MonoBehaviour
     private void Start()
     {
         // Initialize scripts
-        condenser = GetComponent<LiquidContainer>();
+        condenser = GetComponent<NewLiquidContainer>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -114,7 +114,8 @@ public class CondenserController : MonoBehaviour
         // if (tubesCorrectlyAttached && dial.Value <= 0.2)
          if (tubesCorrectlyAttached && dial.Value >= 0.2)
             {
-            condenser.FillContainer("Water", material);
+            //TODO:: use dial.Value to set fill rate
+            condenser.FillContainer();
             PlayAudio(); // Plays bubbling SFX
         } else
         {
