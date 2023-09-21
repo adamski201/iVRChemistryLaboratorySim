@@ -111,7 +111,6 @@ public class CondenserController : MonoBehaviour
     // Fills the condenser with water when tubes are attached correctly and water is on
     private void HandleCondenserInternal()
     {        
-        // if (tubesCorrectlyAttached && dial.Value <= 0.2)
          if (tubesCorrectlyAttached && dial.Value >= 0.2)
             {
             //TODO:: use dial.Value to set fill rate
@@ -127,7 +126,7 @@ public class CondenserController : MonoBehaviour
     // Returns a bool value which indicates that the condenser is in its correct state for reflux success
     public bool IsReady()
     {
-        return condenser.IsFull();
+        return condenser.IsFull() && tubesCorrectlyAttached;
     }
 
     private void PlayAudio()
