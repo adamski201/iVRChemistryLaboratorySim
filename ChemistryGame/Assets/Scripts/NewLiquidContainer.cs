@@ -86,7 +86,8 @@ public class NewLiquidContainer : MonoBehaviour
 
     private Vector3 getPourOrigin()
     {
-        return openingCollider.bounds.min;
+        return opening.transform.position;
+        //return inCollider.bounds.min;
         /*
         float lowestY = float.MaxValue;
         Vector3 result = Vector3.zero;
@@ -115,7 +116,7 @@ public class NewLiquidContainer : MonoBehaviour
         NewLiquidContainer otherLC;
 
         pourRay.origin = getPourOrigin();
-        RaycastHit[] raycastHits = Physics.RaycastAll(pourRay);
+        RaycastHit[] raycastHits = Physics.RaycastAll(pourRay,float.MaxValue,-1,QueryTriggerInteraction.Collide);
         foreach (RaycastHit raycastHit in raycastHits)
         {
             if (raycastHit.transform == null) continue;
