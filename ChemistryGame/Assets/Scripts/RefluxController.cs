@@ -10,7 +10,7 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private ClampController clamp;
     [SerializeField] private CondenserController condenser;
     [SerializeField] private FlaskController flask;
-    [SerializeField] private DialInteractable heatDial;
+    [SerializeField] private HeatDialController heatDial;
     [SerializeField] private ParticleSystem boilingEffect;
     [SerializeField] private AudioSource successSFX;
     [SerializeField] private AudioSource boilingSFX;
@@ -43,16 +43,17 @@ public class RefluxController : MonoBehaviour
         return clamp.IsReady() &&
                flask.IsReady() &&
                condenser.IsReady() &&
-               heatDial.Value <= 0.5 &&
-               heatDial.Value >= 0.2;
+               heatDial.IsReady();
     }
 
     // IEnumerator allows execution over several frames
     IEnumerator Reflux()
     {
-        yield return new WaitForSeconds(1.5f);
-        successSFX.Play();
+        yield return new WaitForSeconds(0.5f);
         boilingSFX.Play();
         boilingEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        successSFX.Play();
+        
     }
 }

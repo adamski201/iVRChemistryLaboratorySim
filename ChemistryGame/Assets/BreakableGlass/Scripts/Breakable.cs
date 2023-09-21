@@ -407,6 +407,7 @@ public	void RepairFunction (GameObject BrokenVersion){
 			if (ShatterSoundClips.Length > 0){
 				SoundNumber = Random.Range (0, ShatterSoundClips.Length);
 				AttachedAudioSource.clip = ShatterSoundClips[SoundNumber];
+				AttachedAudioSource.loop = false;
 				AttachedAudioSource.Play ();
 			}
 		}
@@ -417,6 +418,7 @@ public	void RepairFunction (GameObject BrokenVersion){
 			if (CrackSoundClips.Length > 0){
 				SoundNumber = Random.Range (0, CrackSoundClips.Length);
 				AttachedAudioSource.clip = CrackSoundClips[SoundNumber];
+				AttachedAudioSource.loop = false;
 				AttachedAudioSource.Play ();
 			}
 		}

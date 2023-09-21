@@ -98,7 +98,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Amplitude: 0
+    - _Amplitude: 0.2
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -109,9 +109,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _FoamWidth: 0.01
-    - _Foam_Smoothness: 0
-    - _Frequency: 0
+    - _FoamWidth: 0.024
+    - _Foam_Smoothness: 1.5
+    - _Frequency: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

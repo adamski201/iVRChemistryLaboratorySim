@@ -11,15 +11,17 @@ public class DialInteractable : XRBaseInteractable
     [Tooltip("The transform of the visual component of the knob")]
     public Transform knobTransform = null;
 
-    [Tooltip("The maximum range the knob can rotate")]
-    [Range(-180, 0)] public float maximum = -90.0f;
+    [Tooltip("The angle at which the dial's value is 0")]
+    [Range(-180, 180)] public float angleMinimum = -90.0f;
 
-    [Tooltip("The minimum range the knob can rotate")]
-    [Range(0, 180)] public float minimum = 90.0f;
+    [Tooltip("The angle at which the dial's value is 1")]
+    [Range(-180, 180)] public float angleMaximum = 90.0f;
 
-    [Tooltip("The initial value of the knob")]
-    [Range(0, 1)] public float defaultValue = -90.0f;
+    [Tooltip("The initial value of the knob (0..1)")]
+    [Range(0, 1)] public float defaultValue = 0.0f;
 
+    [Tooltip("Whether turning clockwise increases the value or not")]
+    public bool clockwiseIsPositive = true;
     [Serializable] public class ValueChangeEvent : UnityEvent<float> { }
 
     // When the knobs's value changes
@@ -33,8 +35,12 @@ public class DialInteractable : XRBaseInteractable
 
     private void Start()
     {
-        float defaultRotation = Mathf.Lerp(minimum, maximum, defaultValue);
-        ApplyRotation(defaultRotation);
+        float defaultRotation;
+        if (clockwiseIsPositive)
+            defaultRotation = Mathf.Lerp(angleMaximum, angleMinimum, defaultValue);
+        else
+            defaultRotation = Mathf.Lerp(angleMinimum, angleMaximum, defaultValue);
+        SetRotation(defaultRotation);
         SetValue(defaultRotation);
     }
 
@@ -88,6 +94,17 @@ public class DialInteractable : XRBaseInteractable
         return (Vector3.SignedAngle(knobTransform.forward, rotatedForward, transform.up));
     }
 
+    private float SetRotation(float angle)
+    {
+        Quaternion newRotation = Quaternion.AngleAxis(angle, Vector3.up);
+
+        Vector3 eulerRotation = newRotation.eulerAngles;
+        float unclamped = eulerRotation.y;
+        eulerRotation.y = ClampAngle(eulerRotation.y);
+        knobTransform.localEulerAngles = eulerRotation;
+
+        return eulerRotation.y;
+    }
     private float ApplyRotation(float angle)
     {
         Quaternion newRotation = Quaternion.AngleAxis(angle, Vector3.up);
@@ -95,7 +112,6 @@ public class DialInteractable : XRBaseInteractable
 
         Vector3 eulerRotation = newRotation.eulerAngles;
         eulerRotation.y = ClampAngle(eulerRotation.y);
-
         knobTransform.localEulerAngles = eulerRotation;
         return eulerRotation.y;
     }
@@ -105,12 +121,13 @@ public class DialInteractable : XRBaseInteractable
         if (angle > 180)
             angle -= 360;
 
-        return (Mathf.Clamp(angle, minimum, maximum));
+        return Mathf.Clamp(angle, angleMinimum, angleMaximum);
     }
 
     private void SetValue(float rotation)
     {
-        Value = Mathf.InverseLerp(minimum, maximum, rotation);
+        Value = Mathf.InverseLerp(angleMinimum, angleMaximum, rotation);
+        if (clockwiseIsPositive) Value = 1.0f - Value;
         OnValueChange.Invoke(Value);
     }
 }

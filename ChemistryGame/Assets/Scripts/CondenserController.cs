@@ -42,6 +42,8 @@ public class CondenserController : MonoBehaviour
     private AudioSource audioSource;
     private NewLiquidContainer condenser;
 
+    public AudioClip bubblingSound;
+
     // -----------------FUNCTIONS----------------------------------------------------------------------------------------------------
 
     // Start is called before the first frame update
@@ -131,8 +133,10 @@ public class CondenserController : MonoBehaviour
 
     private void PlayAudio()
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && bubblingSound != null)
         {
+            audioSource.loop = true;
+            audioSource.clip = bubblingSound;
             audioSource.Play();
         }
     }

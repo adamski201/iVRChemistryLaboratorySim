@@ -10,6 +10,8 @@ public class Liquid : MonoBehaviour
     public UpdateMode updateMode;
 
     [SerializeField]
+    float MaxWobbleFull = 0.03f;
+    [SerializeField]
     float MaxWobble = 0.03f;
     [SerializeField]
     float WobbleSpeedMove = 1f;
@@ -204,5 +206,14 @@ public class Liquid : MonoBehaviour
         float yOffset = 0.5f + r.bounds.extents.y - scaled;
       
         fillAmount = yOffset;
+
+        // Now calculate wobble amount
+        if (fillAmount <= MaxWobbleFull)
+        {
+            MaxWobble = 0.0f;
+        } else
+        {
+            MaxWobble = MaxWobbleFull;
+        }
     }
 }

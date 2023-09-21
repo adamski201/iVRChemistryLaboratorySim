@@ -13,7 +13,7 @@ public class HeatDialController : MonoBehaviour
     [SerializeField] private UnityEvent incorrectTrigger;
 
     // Ensures that the Unity Events are triggered only once
-    private bool triggered = false;
+    private bool eventHasBeenTriggered = false;
 
     private DialInteractable dial;
 
@@ -22,6 +22,7 @@ public class HeatDialController : MonoBehaviour
     {
         // Initialize script
         dial = GetComponent<DialInteractable>();
+        
     }
 
     // Update is called once per frame
@@ -34,17 +35,27 @@ public class HeatDialController : MonoBehaviour
     private void HandleTriggers()
     {
         // If the heat is too high, triggers an error event.
-        if (!triggered && dial.Value < 0.2)
+        if (!eventHasBeenTriggered && dial.Value >= 0.5)
         {
             incorrectTrigger.Invoke();
-            triggered = true;
+            eventHasBeenTriggered = true;
         } 
 
         // Triggers correction event when heat is lowered
-        else if (triggered && dial.Value >= 0.2)
+        else if (eventHasBeenTriggered && dial.Value < 0.5)
         {
             correctTrigger.Invoke();
-            triggered = false;
+            eventHasBeenTriggered = false;
         }
+    }
+
+    public bool IsTooHot()
+    {
+        return dial.Angle >= 0.5;
+    }
+
+    public bool IsReady()
+    {
+        return dial.Angle >= 0.2 && dial.Angle < 0.5;
     }
 }
