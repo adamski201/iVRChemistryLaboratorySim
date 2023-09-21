@@ -30,6 +30,8 @@ public class NewLiquidContainer : MonoBehaviour
     private Collider openingCollider;
     private Renderer lcRenderer;
     private Ray pourRay;
+    private float lastAmount;
+    private Quaternion lastRotation;
     
     // TODO:: Implement pouring different liquids.
 
@@ -51,17 +53,29 @@ public class NewLiquidContainer : MonoBehaviour
         if (lcRenderer == null)
             throw new Exception(string.Format("Liquid Container lacks renderer in {0}", gameObject.name));
         pourRay = new Ray(getPourOrigin(), new Vector3(0, -1, 0));
+        
+        // initialise these to nonsense values.
+        lastAmount = -1.0f;
+        lastRotation = Quaternion.identity;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // If we are tipped over enough, pour out
         if (!IsUpright() && !IsEmpty())
         {
             EmptyContainer();
         }
-        // TODO:: wrap in test to see if needed?
-        liquidScript.SetFillAmount(liquidAmount);
+
+        // if the amount has changed since last time, or we have tilted the object reset the level
+        if ( lastAmount != liquidAmount || lastRotation != transform.rotation)
+        {
+            liquidScript.SetFillAmount(liquidAmount);
+            lastAmount = liquidAmount;
+            lastRotation = transform.rotation;
+            //lastBoundsY = transform.rotation.y;
+        }
     }
 
     public bool IsFull()
@@ -87,32 +101,15 @@ public class NewLiquidContainer : MonoBehaviour
     private Vector3 getPourOrigin()
     {
         return opening.transform.position;
-        //return inCollider.bounds.min;
-        /*
-        float lowestY = float.MaxValue;
-        Vector3 result = Vector3.zero;
-
-        foreach( Vector3 v in opening.GetComponent<MeshFilter>().mesh.vertices)
-        {
-            Vector3 candidate = transform.TransformPoint(v);
-
-            if( candidate.y < lowestY)
-            {
-                lowestY = candidate.y;
-                result = candidate;
-            }
-        }
-
-        return result;*/
     }
 
     public void EmptyContainer(float emptyRate)
     {
         if (IsEmpty()) return;
-        float oldLA = liquidAmount;
+        //float oldLA = liquidAmount;
         liquidAmount = Mathf.Max(liquidAmount - (emptyRate / flowFactor), 0.0f);
         liquidScript.SetFillAmount(liquidAmount);
-
+        //Debug.LogFormat("{0} going from {1} to {2}", gameObject.name, oldLA, liquidAmount);
         NewLiquidContainer otherLC;
 
         pourRay.origin = getPourOrigin();
@@ -142,10 +139,16 @@ public class NewLiquidContainer : MonoBehaviour
         FillContainer(defaultFlowRate);
     }
 
-    public void FillContainer(float fillRate) { 
-        if (IsFull()) return;
-        liquidAmount = Mathf.Min(liquidAmount + (fillRate / flowFactor), maxLiquidAmount);
+    public void FillContainer(float fillRate) {
+        if (IsFull())
+        {
+            //Debug.LogFormat("{0} is full", gameObject.name);
+            return;
+        }
+        //float oldAmount = liquidAmount;
+        liquidAmount = Mathf.Clamp(Mathf.Min(liquidAmount + (fillRate / flowFactor), maxLiquidAmount),0,1);
         liquidScript.SetFillAmount(liquidAmount);
+        //Debug.LogFormat("{0} going from {1} to {2} full.", gameObject.name, oldAmount, liquidAmount);
     }
 
     private float getLipPosition()
