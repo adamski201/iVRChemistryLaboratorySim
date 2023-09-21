@@ -36,6 +36,13 @@ public class NewLiquidContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (liquidScript == null)
+        {
+            // liquid script not specified. Try and find it.
+            liquidScript = GetComponentInChildren<Liquid>();
+            if (liquidScript == null)
+                throw new Exception("Liquid script not found");
+        } 
         liquidScript.SetFillAmount(liquidAmount);
         openingCollider = opening.GetComponent<Collider>();
         if (openingCollider == null)
