@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RefluxController : MonoBehaviour
 {
+    // This is basically the gameplay logic
     // This class monitors the state of the reflux procedure and indicates success when complete
 
     [SerializeField] private ClampController clamp;
@@ -30,11 +31,11 @@ public class RefluxController : MonoBehaviour
             refluxBegun = true;
             StartCoroutine(Reflux());
         }
-        else if (refluxBegun && !ReactionIsReady())
-        {
-            boilingEffect.gameObject.SetActive(false);
-            boilingSFX.Pause();
-        }
+        //else if (refluxBegun && !ReactionIsReady())
+        //{
+        //    boilingEffect.gameObject.SetActive(false);
+        //    boilingSFX.Pause();
+        //}
     }
 
     // Checks if the apparatus has been set up correctly

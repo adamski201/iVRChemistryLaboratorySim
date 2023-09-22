@@ -13,7 +13,7 @@ public class ErrorController : MonoBehaviour
     [SerializeField] private GameObject clampError;
     [SerializeField] private GameObject heatError;
     [SerializeField] private GameObject stopperError;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     // True when an error is already being displayed on the board
     private bool errorActive;

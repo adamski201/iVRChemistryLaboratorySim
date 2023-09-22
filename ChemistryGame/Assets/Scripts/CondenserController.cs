@@ -44,6 +44,8 @@ public class CondenserController : MonoBehaviour
 
     public AudioClip bubblingSound;
 
+   // public AudioSource errorAudioSource;
+
     // -----------------FUNCTIONS----------------------------------------------------------------------------------------------------
 
     // Start is called before the first frame update

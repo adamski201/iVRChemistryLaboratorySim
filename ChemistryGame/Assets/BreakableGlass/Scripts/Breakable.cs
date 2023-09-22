@@ -56,6 +56,8 @@ public class Breakable : MonoBehaviour {
 	public AudioClip[] CrackSoundClips;
 	[SerializeField] private float scaleChange = 0.01f;
 
+	public GameObject[] thingsLostOnBreaking;
+
 
 
 
@@ -253,7 +255,15 @@ The following 'Break' coroutine contains most of the logic for this script
 			}
 
 //PLACE CODE TO DO CUSTOM STUFF TO THE SHARDS' Materials BELOW THIS LINE
-			
+			// this makes things inside the glassware invisible when glass smahses
+			foreach (GameObject thing in thingsLostOnBreaking)
+            {
+				Renderer thing_renderer = thing.GetComponent<Renderer>();
+				if (thing_renderer == null) continue;
+				thing_renderer.enabled = false;
+            }
+            
+
 			
 //PLACE CODE TO DO CUSTOM STUFF TO THE SHARDS' Materials ABOVE THIS LINE
 //this space will be left in on updates.
@@ -362,6 +372,14 @@ public	void RepairFunction (GameObject BrokenVersion){
 	//this re-enables the accessory (lid, cork, light). only works for FIRST child.
 		if (transform.childCount > 0){
 			transform.GetChild(0).gameObject.SetActive(true);
+		}
+		foreach (GameObject thing in thingsLostOnBreaking)
+		{
+			Renderer thing_renderer = thing.GetComponent<Renderer>();
+			if (thing_renderer == null) continue;
+			//TODO:: only turn on renderers we turned off
+			//TODO:: handle child objects
+			thing_renderer.enabled = true;
 		}
 
 	}
