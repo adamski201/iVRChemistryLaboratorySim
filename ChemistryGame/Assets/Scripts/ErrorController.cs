@@ -13,6 +13,7 @@ public class ErrorController : MonoBehaviour
     [SerializeField] private GameObject clampError;
     [SerializeField] private GameObject heatError;
     [SerializeField] private GameObject stopperError;
+    [SerializeField] private GameObject victoryMessage;
     public AudioSource audioSource;
 
     // True when an error is already being displayed on the board
@@ -23,6 +24,16 @@ public class ErrorController : MonoBehaviour
     {
         // Initialize scripts
         audioSource = GetComponent<AudioSource>();
+    }
+
+    public void ShowSuccess()
+    {
+        if (errorActive)
+        {
+            Debug.Log("Somehow managed to win with an error active?");
+        }
+
+        victoryMessage.SetActive(true);
     }
 
     public void ShowWaterTubeError()

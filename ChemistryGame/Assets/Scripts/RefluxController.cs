@@ -15,6 +15,7 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private ParticleSystem boilingEffect;
     [SerializeField] private AudioSource successSFX;
     [SerializeField] private AudioSource boilingSFX;
+    [SerializeField] private ErrorController errorController;
     private bool refluxBegun;
 
     // Update is called once per frame
@@ -55,6 +56,6 @@ public class RefluxController : MonoBehaviour
         boilingEffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         successSFX.Play();
-        
+        errorController.ShowSuccess();
     }
 }

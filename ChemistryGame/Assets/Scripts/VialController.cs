@@ -49,7 +49,6 @@ public class VialController : MonoBehaviour
     // When the vial is picked up, the vial's lid can now be grabbed and removed
     public void onSelectEnter(SelectEnterEventArgs args)
     {
-        Debug.Log("Vial on select enter");
         if (args.interactorObject == leftController || args.interactorObject == rightController)
         {
             vialGrabCollider.gameObject.SetActive(true);
@@ -59,7 +58,6 @@ public class VialController : MonoBehaviour
     // When the vial is dropped, if the lid is attached the lid's grab collider is disabled
     public void onSelectExit(SelectExitEventArgs args)
     {
-        Debug.Log("Vial on select exit");
         if (socket.hasSelection && (args.interactorObject == leftController || args.interactorObject == rightController))
         {
             vialGrabCollider.gameObject.SetActive(false);
