@@ -12,6 +12,10 @@ public class VialController : MonoBehaviour
     // Initializes the collider which is used to grab the lid
     [SerializeField] private Collider vialGrabCollider;
 
+    // holds the hidden collider that acts as the /physics/ lid.
+    [SerializeField] private Collider granuleGrabCollider;
+
+
     // Initializes the vial XRGrabInteractable object
     [SerializeField] private XRGrabInteractable vial;
 
@@ -29,13 +33,14 @@ public class VialController : MonoBehaviour
         vialGrabCollider.gameObject.SetActive(false);
 
         // Sets vial to listen to the SelectEnter and SelectExit events
-        vial.selectEntered.AddListener(onSelectEnter);
-        vial.selectExited.AddListener(onSelectExit);
+        //vial.selectEntered.AddListener(onSelectEnter);
+        //vial.selectExited.AddListener(onSelectExit);
     }
 
     // When the vial is picked up, the vial's lid can now be grabbed and removed
-    private void onSelectEnter(SelectEnterEventArgs args)
+    public void onSelectEnter(SelectEnterEventArgs args)
     {
+        Debug.Log("Vial on select enter");
         if (args.interactorObject == leftController || args.interactorObject == rightController)
         {
             vialGrabCollider.gameObject.SetActive(true);
@@ -43,12 +48,18 @@ public class VialController : MonoBehaviour
     }
     
     // When the vial is dropped, if the lid is attached the lid's grab collider is disabled
-    private void onSelectExit(SelectExitEventArgs args)
+    public void onSelectExit(SelectExitEventArgs args)
     {
+        Debug.Log("Vial on select exit");
         if (socket.hasSelection && (args.interactorObject == leftController || args.interactorObject == rightController))
         {
             vialGrabCollider.gameObject.SetActive(false);
         }
+    }
+
+    public void updateGranuleCollider()
+    {
+        granuleGrabCollider.gameObject.SetActive(socket.hasSelection);
     }
 }
 #pragma warning enable CS0252 // Possible unintended reference comparison; left hand side needs cast
