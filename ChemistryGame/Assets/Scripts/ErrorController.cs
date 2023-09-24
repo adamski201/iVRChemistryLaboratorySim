@@ -1,6 +1,9 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 
 public class ErrorController : MonoBehaviour
 {
@@ -14,146 +17,112 @@ public class ErrorController : MonoBehaviour
     [SerializeField] private GameObject heatError;
     [SerializeField] private GameObject stopperError;
     [SerializeField] private GameObject victoryMessage;
+    [SerializeField] private GameObject errorBoard;
+    private TextMeshPro errorText;
+    private MessageStack messageStack = new();
+
     public AudioSource audioSource;
 
-    // True when an error is already being displayed on the board
-    private bool errorActive;
+    private LocalizedString message = new();
 
     // Start is called before the first frame update
     private void Start()
     {
         // Initialize scripts
         audioSource = GetComponent<AudioSource>();
+        errorText = errorBoard.GetComponentInChildren<TextMeshPro>();
+        message.TableReference = "Whiteboard Messages";
     }
 
     public void ShowSuccess()
     {
-        if (errorActive)
-        {
-            Debug.Log("Somehow managed to win with an error active?");
-        }
+        AddError("Success Message");
 
-        victoryMessage.SetActive(true);
     }
 
     public void ShowWaterTubeError()
     {
-        // Prevents multiple errors being displayed on top of each other
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        waterTubesError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Water Error");
     }
 
     public void HideWaterTubeError()
     {
-        waterTubesError.SetActive(false);
-        errorActive = false;
+        RemoveError("Water Error");
     }
 
     public void ShowBumpingError()
     {
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        bumpingError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Granules Error");
     }
 
     public void HideBumpingError()
     {
-        bumpingError.SetActive(false);
-        errorActive = false;
+        RemoveError("Granules Error");
     }
 
     public void ShowWiresError()
     {
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        wiresError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Wire Error");
     }
 
     public void HideWiresError()
     {
-        wiresError.SetActive(false);
-        errorActive = false;
+        RemoveError("Wire Error");
     }
 
     public void ShowClampError()
     {
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        clampError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Clamp Error");
     }
 
     public void HideClampError()
     {
-        clampError.SetActive(false);
-        errorActive = false;
+        RemoveError("Clamp Error");
     }
 
     public void ShowHeatError()
     {
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        heatError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Too Hot Error");
     }
-
     public void HideHeatError()
     {
-        heatError.SetActive(false);
-        errorActive = false;
+        RemoveError("Too Hot Error");
     }
 
     public void ShowStopperError()
     {
-        if (errorActive)
-        {
-            HideAllErrors();
-        }
-
-        stopperError.SetActive(true);
-        audioSource.Play();
-        errorActive = true;
+        AddError("Stopper Error");
     }
 
     public void HideStopperError()
     {
-        stopperError.SetActive(false);
-        errorActive = false;
+        RemoveError("Stopper Error");
     }
 
-    private void HideAllErrors()
+    private void AddError(string errorKey)
     {
-        stopperError.SetActive(false);
-        heatError.SetActive(false);
-        clampError.SetActive(false);
-        wiresError.SetActive(false);
-        bumpingError.SetActive(false);
-        waterTubesError.SetActive(false);
+        messageStack.Push(errorKey);
+        updateBoard();
+    }
 
-        errorActive = false;
+    private void RemoveError(string errorKey)
+    {
+        messageStack.Remove(errorKey);
+        updateBoard();
+    }
+
+    private void updateBoard()
+    {
+        if( messageStack.Count() > 0 )
+        {
+            // there are errors to display.
+            message.TableEntryReference = messageStack.Peek();
+            errorText.text = message.GetLocalizedString();
+            errorBoard.SetActive(true);
+            audioSource.Play();
+        } else
+        {
+            errorBoard.SetActive(false);
+        }
     }
 }
