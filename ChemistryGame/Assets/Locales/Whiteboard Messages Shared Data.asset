@@ -16,11 +16,39 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: e5f7952e3b6aabc4194a6733ca4f4c74
   m_Entries:
   - m_Id: 1261815230464
-    m_Key: "Water Error\t"
+    m_Key: Water Error
     m_Metadata:
       m_Items: []
   - m_Id: 1478929182720
     m_Key: Wire Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1630544883712
+    m_Key: Granules Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1744734810112
+    m_Key: Clamp Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1797704675328
+    m_Key: Too Hot Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1850829729792
+    m_Key: Stopper Error
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1926897627136
+    m_Key: Success Message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34779500933120
+    m_Key: Welcome Message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36586797166592
+    m_Key: Invalid Message
     m_Metadata:
       m_Items: []
   m_Metadata:

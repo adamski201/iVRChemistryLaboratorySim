@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using Assets.Scripts;
 
 public class ClampController : MonoBehaviour
 { 
@@ -12,9 +13,7 @@ public class ClampController : MonoBehaviour
     [SerializeField] private XRSocketInteractor correctSocket;
     [SerializeField] private XRSocketInteractor incorrectSocket;
 
-    // Initialize Unity Events, which communicate when a mistake has been made and when it has been corrected
-    [SerializeField] private UnityEvent correctTrigger;
-    [SerializeField] private UnityEvent incorrectTrigger;
+    public WhiteboardMessageController whiteboard;
 
     //Initialize socket on flask
     [SerializeField] private XRSocketInteractor flaskSocket;
@@ -40,14 +39,14 @@ public class ClampController : MonoBehaviour
         // Triggers error event when the clamp is clamped to the condenser
         if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered)
         {
-            incorrectTrigger.Invoke();
+            whiteboard.RaiseMessage(WhiteboardMessage.CLAMP_ERROR);
             triggered = true;
         }
 
         // Triggers correction event when the clamp is then clamped to the flask
         else if (flaskSocket.hasSelection && correctSocket.hasSelection && triggered)
         {
-            correctTrigger.Invoke();
+            whiteboard.RemoveMessage(WhiteboardMessage.CLAMP_ERROR);
             triggered = false;
         }
     }

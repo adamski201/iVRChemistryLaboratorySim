@@ -28,6 +28,36 @@ MonoBehaviour:
       the condenser. Use the wires.
     m_Metadata:
       m_Items: []
+  - m_Id: 1630544883712
+    m_Localized: Add anti-bumping granules before attaching the condenser. This prevents
+      bumping, which causes the mixture to jump out of the top of the condenser.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1744734810112
+    m_Localized: The clamp is not attached or is attached to the condenser. Never
+      attach the clamp to the condenser, as this can break the connection to the
+      flask.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1797704675328
+    m_Localized: The mixture will boil too vigorously. Set the heat to gently boil
+      the mixture.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1850829729792
+    m_Localized: Do not attach a stopper. Stopping the top of the condenser creates
+      an explosion risk when heating volatile mixtures.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1926897627136
+    m_Localized: Congratulations. You have succeeded at the task.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34779500933120
+    m_Localized: "Welcome! \nYour task is to set up a reflux. Errors will be shown
+      here.\nGood luck!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

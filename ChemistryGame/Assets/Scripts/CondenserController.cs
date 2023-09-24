@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using Assets.Scripts;
+
 
 public class CondenserController : MonoBehaviour
 {
@@ -29,6 +31,8 @@ public class CondenserController : MonoBehaviour
     // Initializes Unity Events, which communicate when a mistake has been made and when it has been corrected
     [SerializeField] private UnityEvent incorrectTrigger;
     [SerializeField] private UnityEvent correctTrigger;
+
+    public WhiteboardMessageController whiteboard;
 
     // Ensures that the Unity Events are triggered only once
     private bool triggered = false;
@@ -97,7 +101,7 @@ public class CondenserController : MonoBehaviour
             tubesCorrectlyAttached = true;
             if (triggered)
             {
-                correctTrigger.Invoke();
+                whiteboard.RemoveMessage(WhiteboardMessage.WATER_ERROR);
                 triggered = false;
             }
         }
@@ -106,7 +110,7 @@ public class CondenserController : MonoBehaviour
             tubesCorrectlyAttached = false;
             if (!triggered && dial.Value >= 0.2)
             {
-                incorrectTrigger.Invoke();
+                whiteboard.RaiseMessage(WhiteboardMessage.WATER_ERROR);
                 triggered = true;
             }
         }

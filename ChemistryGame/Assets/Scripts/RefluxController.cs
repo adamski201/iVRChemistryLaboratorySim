@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private ParticleSystem boilingEffect;
     [SerializeField] private AudioSource successSFX;
     [SerializeField] private AudioSource boilingSFX;
-    [SerializeField] private ErrorController errorController;
+    [SerializeField] private WhiteboardMessageController whiteboard;
     private bool refluxBegun;
 
     // Update is called once per frame
@@ -56,6 +57,6 @@ public class RefluxController : MonoBehaviour
         boilingEffect.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         successSFX.Play();
-        errorController.ShowSuccess();
+        whiteboard.RaiseMessage(WhiteboardMessage.SUCCESS);
     }
 }

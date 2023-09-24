@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using Assets.Scripts;
 
 public class FlaskController : MonoBehaviour
 {
@@ -14,15 +15,12 @@ public class FlaskController : MonoBehaviour
     // Initializes the flask socket (condenser attachment)
     [SerializeField] private XRSocketInteractor flaskSocket;
 
-    // Initialize Unity Events, which communicate when a mistake has been made and when it has been corrected
-    [SerializeField] private UnityEvent noGranulesTrigger;
-    [SerializeField] private UnityEvent hasGranulesTrigger;
-
     // Ensures that the Unity Events are triggered only once
     private bool triggered = false;
 
     private SolidHolder granuleHolder;
     private NewLiquidContainer flask;
+    public WhiteboardMessageController whiteboard;
 
     // Start is called before the first frame update
     private void Start()
@@ -41,7 +39,7 @@ public class FlaskController : MonoBehaviour
     // Returns a bool value which indicates that the flask is in its correct state for reflux success
     public bool IsReady()
     {
-        return flask.liquidAmount >= 0.5 && hotplateSocket.hasSelection &&
+        return flask.liquidAmount >= 0.49 && hotplateSocket.hasSelection &&
                flaskSocket.hasSelection && HasAntiBumpingGranules();
     }
 
@@ -51,14 +49,14 @@ public class FlaskController : MonoBehaviour
         // If the condenser has been attached when no anti-bumping granules are contained in the flask, triggers error event
         if (!triggered && !HasAntiBumpingGranules() && flaskSocket.hasSelection)
         {
-            noGranulesTrigger.Invoke();
+            whiteboard.RaiseMessage(WhiteboardMessage.GRANULE_ERROR);
             triggered = true;
         }
 
         // Triggers correction event when anti-bump granules are then added
         else if (triggered && HasAntiBumpingGranules())
         {
-            hasGranulesTrigger.Invoke();
+            whiteboard.RemoveMessage(WhiteboardMessage.GRANULE_ERROR);
             triggered = false;
         }
     }

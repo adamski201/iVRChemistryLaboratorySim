@@ -8,15 +8,15 @@ namespace Assets.Scripts
 
     public class MessageStack
     {
-        readonly LinkedList<string> list = new();
+        readonly LinkedList<WhiteboardMessage> list = new();
         // Use this for initialization
 
-        public void Push(string item)
+        public void Push(WhiteboardMessage item)
         {
             list.AddFirst(item);
         }
 
-        public void Remove(string item)
+        public void Remove(WhiteboardMessage item)
         {
             if (!list.Remove(item))
             {
@@ -24,9 +24,9 @@ namespace Assets.Scripts
             }
         }
 
-        public string Peek()
+        public WhiteboardMessage Peek()
         {
-            if (list.Count == 0) return null;
+            if (list.Count == 0) return WhiteboardMessage.INVALID_ERROR;
             return list.First.Value;
         }
 
@@ -34,8 +34,5 @@ namespace Assets.Scripts
         {
             return list.Count;
         }
-
-        
-
     }
 }

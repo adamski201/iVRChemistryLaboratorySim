@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using Assets.Scripts;
 
 public class TubesController : MonoBehaviour
 {
@@ -10,9 +11,8 @@ public class TubesController : MonoBehaviour
 
     [SerializeField] private XRSocketInteractor outletSocket;
     [SerializeField] private XRSocketInteractor inletSocket;
-    [SerializeField] private UnityEvent correctTrigger;
-    [SerializeField] private UnityEvent incorrectTrigger;
     [SerializeField] private NewLiquidContainer condenser;
+    public WhiteboardMessageController whiteboard;
     private bool triggered = false;
 
     private void Update()
@@ -26,14 +26,14 @@ public class TubesController : MonoBehaviour
         // If wires haven't been attached but the water is flowing through, triggers error event
         if (!triggered && (!outletSocket.hasSelection || !inletSocket.hasSelection) && condenser.IsFull())
         {
-            incorrectTrigger.Invoke();
+            whiteboard.RaiseMessage(WhiteboardMessage.WIRE_ERROR);
             triggered = true;
         } 
 
         // Triggers correction event when the wires are added
         else if (triggered && outletSocket.hasSelection && inletSocket.hasSelection)
         {
-            correctTrigger.Invoke();
+            whiteboard.RemoveMessage(WhiteboardMessage.WIRE_ERROR);
             triggered = false;
         }
     }

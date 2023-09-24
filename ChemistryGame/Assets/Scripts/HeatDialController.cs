@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
+using Assets.Scripts;
 
 public class HeatDialController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class HeatDialController : MonoBehaviour
     // Initialize Unity Events, which communicate when a mistake has been made and when it has been corrected
     [SerializeField] private UnityEvent correctTrigger;
     [SerializeField] private UnityEvent incorrectTrigger;
+    public WhiteboardMessageController whiteboard;
 
     // Ensures that the Unity Events are triggered only once
     private bool eventHasBeenTriggered = false;
@@ -37,14 +39,14 @@ public class HeatDialController : MonoBehaviour
         // If the heat is too high, triggers an error event.
         if (!eventHasBeenTriggered && dial.Value >= 0.5)
         {
-            incorrectTrigger.Invoke();
+            whiteboard.RaiseMessage(WhiteboardMessage.HEAT_ERROR);
             eventHasBeenTriggered = true;
         } 
 
         // Triggers correction event when heat is lowered
         else if (eventHasBeenTriggered && dial.Value < 0.5)
         {
-            correctTrigger.Invoke();
+            whiteboard.RemoveMessage(WhiteboardMessage.HEAT_ERROR);
             eventHasBeenTriggered = false;
         }
     }
