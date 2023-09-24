@@ -7,14 +7,15 @@ public class GranuleController : MonoBehaviour
 {
     // This class handles anti-bumping granule behaviour
     [SerializeField] private AudioSource granuleSFX;
-    [SerializeField]  public static AudioClip splash;
+    public static AudioClip splash;
     public static AudioClip plink;
     public static NewLiquidContainer flask;
+    public static Material wetMaterial;
 
     // Start is called before the first frame update
     private void Start()
     {
-        
+
     }
 
     // Communicates that a granule has been added to the flask
@@ -36,6 +37,8 @@ public class GranuleController : MonoBehaviour
                 // play splash
                 granuleSFX.clip = splash;
                 granuleSFX.Play();
+                GetComponent<Renderer>().material = wetMaterial;
+
             }
             else
             {

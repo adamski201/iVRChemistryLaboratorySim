@@ -14,6 +14,8 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private FlaskController flask;
     [SerializeField] private HeatDialController heatDial;
     [SerializeField] private ParticleSystem boilingEffect;
+    [SerializeField] private ParticleSystem boilingEffect1;
+    //[SerializeField] private ParticleSystem boilingEffect2;
     [SerializeField] private AudioSource successSFX;
     [SerializeField] private AudioSource boilingSFX;
     [SerializeField] private WhiteboardMessageController whiteboard;
@@ -55,6 +57,8 @@ public class RefluxController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         boilingSFX.Play();
         boilingEffect.gameObject.SetActive(true);
+        boilingEffect1.gameObject.SetActive(true);
+        //boilingEffect2.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         successSFX.Play();
         whiteboard.RaiseMessage(WhiteboardMessage.SUCCESS);
