@@ -15,7 +15,7 @@ public class RefluxController : MonoBehaviour
     [SerializeField] private HeatDialController heatDial;
     [SerializeField] private ParticleSystem boilingEffect;
     [SerializeField] private ParticleSystem boilingEffect1;
-    //[SerializeField] private ParticleSystem boilingEffect2;
+    [SerializeField] private ParticleSystem boilingEffectBubbles;
     [SerializeField] private AudioSource successSFX;
     [SerializeField] private AudioSource boilingSFX;
     [SerializeField] private WhiteboardMessageController whiteboard;
@@ -58,7 +58,7 @@ public class RefluxController : MonoBehaviour
         boilingSFX.Play();
         boilingEffect.gameObject.SetActive(true);
         boilingEffect1.gameObject.SetActive(true);
-        //boilingEffect2.gameObject.SetActive(true);
+        boilingEffectBubbles.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         successSFX.Play();
         whiteboard.RaiseMessage(WhiteboardMessage.SUCCESS);
