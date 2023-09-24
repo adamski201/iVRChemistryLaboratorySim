@@ -15,6 +15,11 @@ public class VialController : MonoBehaviour
     // holds the hidden collider that acts as the /physics/ lid.
     [SerializeField] private Collider granuleGrabCollider;
 
+    // Link to the granule object to multiply
+    [SerializeField] private GameObject granuleObject;
+
+    // How many granule objects we want.
+    [SerializeField] private int granuleCount = 8;
 
     // Initializes the vial XRGrabInteractable object
     [SerializeField] private XRGrabInteractable vial;
@@ -31,6 +36,10 @@ public class VialController : MonoBehaviour
     {
         // Disables the lid's grab collider initially
         vialGrabCollider.gameObject.SetActive(false);
+
+        // create granuleCount-1 duplicates of granuleObject
+        for (int i = 0; i < granuleCount; i++)
+            Object.Instantiate(granuleObject, granuleObject.transform.parent);
 
         // Sets vial to listen to the SelectEnter and SelectExit events
         //vial.selectEntered.AddListener(onSelectEnter);
