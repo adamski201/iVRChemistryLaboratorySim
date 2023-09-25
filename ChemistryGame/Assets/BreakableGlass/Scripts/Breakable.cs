@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
+using System.Collections.Generic;
 
 public class Breakable : MonoBehaviour {
 
@@ -57,6 +58,7 @@ public class Breakable : MonoBehaviour {
 	[SerializeField] private float scaleChange = 0.01f;
 
 	public GameObject[] thingsLostOnBreaking;
+	private List<Renderer> thingsToTurnBackOnOnRepair;
 
 
 
@@ -215,7 +217,7 @@ The following 'Break' coroutine contains most of the logic for this script
 //1.
 		if (Replacements.Length > 0) {
 //2.		This will be a number between 1 and the number of possible (assigned) replacements.
-			RandomReplacementNumber = Random.Range (0, Replacements.Length);
+			RandomReplacementNumber = UnityEngine.Random.Range (0, Replacements.Length);
 
 			GameObject NewReplacement = Instantiate (Replacements [RandomReplacementNumber], transform.position, transform.rotation) as GameObject;
 
@@ -254,13 +256,15 @@ The following 'Break' coroutine contains most of the logic for this script
 			}
 			}
 
-//PLACE CODE TO DO CUSTOM STUFF TO THE SHARDS' Materials BELOW THIS LINE
+			//PLACE CODE TO DO CUSTOM STUFF TO THE SHARDS' Materials BELOW THIS LINE
 			// this makes things inside the glassware invisible when glass smahses
+			thingsToTurnBackOnOnRepair = new List<Renderer>();
 			foreach (GameObject thing in thingsLostOnBreaking)
             {
 				Renderer thing_renderer = thing.GetComponent<Renderer>();
-				if (thing_renderer == null) continue;
+				if (thing_renderer == null || !thing_renderer.enabled) continue;
 				thing_renderer.enabled = false;
+				thingsToTurnBackOnOnRepair.Add(thing_renderer);
             }
             
 
@@ -300,7 +304,7 @@ The following 'Break' coroutine contains most of the logic for this script
 
 				for (int i = 0; i < ShardsRigidbodies.Length; i++) {
 					if (ShardsRigidbodies[i].gameObject != null){
-					ShardLifeTime = Random.Range (MinShardLife, MaxShardLife);
+					ShardLifeTime = UnityEngine.Random.Range (MinShardLife, MaxShardLife);
 					Destroy (ShardsRigidbodies [i].gameObject, ShardLifeTime);
 					}
 				}
@@ -373,15 +377,9 @@ public	void RepairFunction (GameObject BrokenVersion){
 		if (transform.childCount > 0){
 			transform.GetChild(0).gameObject.SetActive(true);
 		}
-		foreach (GameObject thing in thingsLostOnBreaking)
-		{
-			Renderer thing_renderer = thing.GetComponent<Renderer>();
-			if (thing_renderer == null) continue;
-			//TODO:: only turn on renderers we turned off
-			//TODO:: handle child objects
-			thing_renderer.enabled = true;
-		}
 
+		foreach (Renderer r in thingsToTurnBackOnOnRepair)
+			r.enabled = true;
 	}
 
 
@@ -423,7 +421,7 @@ public	void RepairFunction (GameObject BrokenVersion){
 	void PlayShatterSound (){
 		if (PlaySound){
 			if (ShatterSoundClips.Length > 0){
-				SoundNumber = Random.Range (0, ShatterSoundClips.Length);
+				SoundNumber = UnityEngine.Random.Range (0, ShatterSoundClips.Length);
 				AttachedAudioSource.clip = ShatterSoundClips[SoundNumber];
 				AttachedAudioSource.loop = false;
 				AttachedAudioSource.Play ();
@@ -434,7 +432,7 @@ public	void RepairFunction (GameObject BrokenVersion){
 	void PlayCrackingSound (){
 		if (PlaySound){
 			if (CrackSoundClips.Length > 0){
-				SoundNumber = Random.Range (0, CrackSoundClips.Length);
+				SoundNumber = UnityEngine.Random.Range (0, CrackSoundClips.Length);
 				AttachedAudioSource.clip = CrackSoundClips[SoundNumber];
 				AttachedAudioSource.loop = false;
 				AttachedAudioSource.Play ();
