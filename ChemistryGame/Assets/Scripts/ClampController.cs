@@ -37,7 +37,7 @@ public class ClampController : MonoBehaviour
     private void HandleTriggers()
     {
         // Triggers error event when the clamp is clamped to the condenser
-        if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered)
+        if (flaskSocket.hasSelection && incorrectSocket.hasSelection && !triggered) 
         {
             whiteboard.RaiseMessage(WhiteboardMessage.CLAMP_ERROR);
             triggered = true;
